@@ -1,0 +1,57 @@
+body {
+    margin: 0;
+    font-family: Calibri;
+}
+
+ul{
+    list-style-type: none;
+    display: inline;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 100%;
+}
+
+#nav-top {
+    font-size: 30px;
+    color: white;
+}
+
+.nav-bar {
+    float: left;
+    padding-left: 5px;
+    display: block;
+    width: 10%;
+    height: 1cm;
+    background-color: gray;
+    text-align: center;
+}
+
+.nav-bar-br {
+    float: left;
+    padding-left: 5px;
+    display: block;
+    width: 10%;
+    height: 1cm;
+    background-color: gray;
+    /* border: 3px solid silver; */
+    text-align: center;
+}
+
+#nav-spacer {
+    width: 100%;
+    background-color: gray;
+    list-style-type: none;
+    padding-top: 1px;
+    color: white;
+    text-align: right;
+}
+
+a:hover {
+    color: red;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
