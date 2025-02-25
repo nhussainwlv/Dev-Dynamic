@@ -1,3 +1,7 @@
+html{
+    text-align: center;
+}
+
 body {
     margin: 0;
     font-family: Calibri;
@@ -54,4 +58,35 @@ a:hover {
 a {
     text-decoration: none;
     color: white;
+}
+
+.login-hyperlink {
+    color: rgb(0, 4, 255);
+}
+
+form{
+    width: min(300px, 100%);
+    margin: 20px auto 50px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+form > div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+form input{
+    box-sizing: border-box;
+    flex-grow: 1;
+    min-width: 0;
+    height: 50px;
+    padding: 1em;
+}
+
+.incorrect input{
+    border-color: red;
 }
