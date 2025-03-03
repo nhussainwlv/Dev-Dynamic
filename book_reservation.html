@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-
 <html>
     <head>
         <title>WLV Companion</title>
         <link rel="stylesheet" href="style.css">
+        <script type="text/javascript" src="reservation_script.js" defer></script>
     </head>
 
     <body>
         <div id="nav-top">
             <ul>
-                <li class="nav-bar"><a href="index.html">Home</a></a></li>
+                <li class="nav-bar"><a href="index.html">Home</a></li>
                 <li class="nav-bar"><a href="map.html">Map</a></li>
                 <li class="nav-bar-br"><a></a></li>
                 <li class="nav-bar"><a href="log_in.html">Log In</a></li>
@@ -20,9 +20,26 @@
             <li id="nav-spacer"><a href="help.html">Help</a></li>
         </div>
 
+        <div class="reservation-container">
+            <h1>Book a Reservation</h1>
+            <form id="reservation-form">
+                <div>
+                    <label for="date">Select Date:</label>
+                    <input type="date" id="date" name="date">
+                </div>
+                <div>
+                    <label for="time">Select Time:</label>
+                    <input type="time" id="time" name="time">
+                </div>
+                <button type="button" id="book-button">Book Reservation</button>
+            </form>
+        </div>
 
-
-
-        
+        <div id="confirmation-box" class="hidden">
+            <div class="confirmation-message">
+                <p>Reservation has been booked</p>
+                <button id="close-button">Close</button>
+            </div>
+        </div>
     </body>
 </html>

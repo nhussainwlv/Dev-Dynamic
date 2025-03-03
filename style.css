@@ -1,4 +1,4 @@
-html{
+html {
     text-align: center;
 }
 
@@ -7,7 +7,7 @@ body {
     font-family: Calibri;
 }
 
-ul{
+ul {
     list-style-type: none;
     display: inline;
     margin: 0;
@@ -42,7 +42,6 @@ ul{
     width: 10%;
     height: 1cm;
     background-color: gray;
-    /* border: 3px solid silver; */
     text-align: center;
 }
 
@@ -68,7 +67,7 @@ a {
     color: rgb(0, 4, 255);
 }
 
-form{
+form {
     width: min(300px, 100%);
     margin: 20px auto 50px auto;
     display: flex;
@@ -77,13 +76,13 @@ form{
     gap: 10px;
 }
 
-form > div{
+form > div {
     width: 100%;
     display: flex;
     justify-content: center;
 }
 
-form input{
+form input {
     box-sizing: border-box;
     flex-grow: 1;
     min-width: 0;
@@ -91,6 +90,30 @@ form input{
     padding: 1em;
 }
 
-.incorrect input{
-    border-color: red;
+.hidden {
+    display: none;
+}
+
+#confirmation-box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+}
+
+#close-button {
+    background-color: red;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+#close-button:hover {
+    background-color: darkred;
 }
