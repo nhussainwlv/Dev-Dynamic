@@ -56,6 +56,11 @@ function getSignupErrors(fullname, email, password, confirmPassword){
         setInputError(password_input, 'Password must be > 6 characters.')
     }
 
+    if(password.length > 32){
+        errors.push('Password can not be longer than 32 characters.')
+        setInputError(password_input, 'Password must be < 32 characters.')
+    }
+
     return errors
 }
 
