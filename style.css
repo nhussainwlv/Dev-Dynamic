@@ -1,5 +1,6 @@
 html {
     text-align: center;
+    scroll-behavior: smooth;
 }
 
 h1 {
@@ -21,6 +22,9 @@ main {
 body {
     margin: 0;
     font-family: Calibri;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 ul {
@@ -35,6 +39,9 @@ ul {
 #nav-top {
     font-size: 30px;
     color: white;
+    padding: 15px 20px;
+    background-color: gray;
+    justify-content: space-between;
 }
 
 .nav-bar {
@@ -43,7 +50,6 @@ ul {
     display: block;
     width: 10%;
     height: 1cm;
-    background-color: gray;
     text-align: center;
 }
 
