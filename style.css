@@ -101,7 +101,17 @@ form {
 form > div {
     width: 100%;
     display: flex;
-    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    max-width: 400px;
+}
+
+form label {
+    white-space: nowrap;
+    font-size: 1rem;
+    width: 30%;
+    text-align: right;
+    padding-right: 10px;
 }
 
 form input {
@@ -110,7 +120,11 @@ form input {
     min-width: 0;
     height: 50px;
     padding: 1em;
+    font-size: 1rem;
+    width: 100%;
+    max-width: 300px;
 }
+
 
 .hidden {
     display: none;
@@ -141,7 +155,7 @@ form input {
 }
 
 footer {
-    background-color:gray;
+    background-color: gray;
     color: white;
     text-align: center;
     padding: 10px;
