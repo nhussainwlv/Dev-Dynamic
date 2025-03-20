@@ -4,6 +4,8 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: log_in.html");
     exit;
 }
+
+$fullname = isset($_SESSION['fullname']) ? htmlspecialchars($_SESSION['fullname'], ENT_QUOTES, 'UTF-8') : 'User';
 ?>
 
 <!DOCTYPE html>
@@ -37,7 +39,7 @@ if (!isset($_SESSION['user_id'])) {
             </ul>
         </nav>
 
-        <h2>Welcome to your Dashboard</h2>
+        <h2>Welcome to your Dashboard, <?php echo $fullname; ?> </h2>
         <a href="logout.php">Logout</a>
         
         <footer>
