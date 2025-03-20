@@ -12,6 +12,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Hash the password for security
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
+    // Check if email already exists
+    $checkStmt = $mysqli->prepare("SELECT email FROM users WHERE email = ?");
+    if ($checkStmt) {
+        $checkStmt->bind_param("s", $email);
+        $checkStmt->execute();
+        $checkStmt->store_result();
+
+        if ($checkStmt->num_rows > 0) {
+            die("Error: Email already exists. Please use a different email.");
+        }
+        $checkStmt->close();
+    } else {
+        die("Database error: " . $mysqli->error);
+    }
+
     // Prepare and execute SQL statement
     $stmt = $mysqli->prepare("INSERT INTO users (fullname, email, password) VALUES (?, ?, ?)");
     if ($stmt) {
