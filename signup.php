@@ -20,8 +20,9 @@ if ($current_time - $_SESSION['last_successful_signup'] < $cooldown_time) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $fullname = $_POST['fullname'];
-    $email = $_POST['email'];
+    // Prevent XSS by sanitising input
+    $fullname = htmlspecialchars($_POST['fullname'], ENT_QUOTES, 'UTF-8');
+    $email = htmlspecialchars($_POST['email'], ENT_QUOTES, 'UTF-8');
     $password = $_POST['password'];
 
     // Hash the password for security
