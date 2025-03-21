@@ -3,9 +3,9 @@
 <html>
     <head>
         <title>WLV Companion</title>
-        <link rel="stylesheet" href="style.css"> <!-- Links to css stylesheet -->
-        <script type="text/javascript" src="account_validation.js" defer></script> <!-- Links to JS file for handling form validation and errors-->
-        <script src="header_sidebar.js"></script> <!-- Links to JS file for header sidebar functions-->
+        <link rel="stylesheet" href="style.css?v=1.1"> <!-- Links to css stylesheet -->
+        <script type="text/javascript" src="account_validation.js?v=2.3" defer></script> <!-- Links to JS file for handling form validation and errors-->
+        <script src="header_sidebar.js?v=2.0"></script> <!-- Links to JS file for header sidebar functions-->
     </head>
 
     <body>
@@ -34,16 +34,16 @@
             <h1>Create an Account</h1>
             <p id="error-message" class="hidden"></p>
 
-            <form action="signup.php" method="POST">
+            <form action="signup.php" id="sign_up_form" method="POST">
                 <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                 <div>
-                    <input type="text" name="fullname" placeholder="Full Name" required>
+                    <input type="text" name="fullname" placeholder="Full Name" id="fullname-input" required>
                 </div>
                 <div>
-                    <input type="email" name="email" placeholder="Email" required>
+                    <input type="email" name="email" placeholder="Email" id="email-input" required>
                 </div>
                 <div>
-                    <input type="password" name="password" placeholder="Password" required>
+                    <input type="password" name="password" id="password-input" placeholder="Password" required>
                 </div>
                 <button type="submit">Sign Up</button>
             </form>
