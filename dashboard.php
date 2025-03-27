@@ -1,11 +1,11 @@
 <?php
 session_start();
-if (!isset($_SESSION['user_id'])) {
-    header("Location: log_in.html");
+if (!isset($_SESSION['UID'])) {
+    header("Location: login.php");
     exit;
 }
 
-$fullname = isset($_SESSION['fullname']) ? htmlspecialchars($_SESSION['fullname'], ENT_QUOTES, 'UTF-8') : 'User';
+$fullname = isset($_SESSION['fullName']) ? htmlspecialchars($_SESSION['fullName'], ENT_QUOTES, 'UTF-8') : 'User';
 ?>
 
 <!DOCTYPE html>
@@ -23,14 +23,14 @@ $fullname = isset($_SESSION['fullname']) ? htmlspecialchars($_SESSION['fullname'
                 <li onclick=hideSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></a></li>
                 <li><a href="index.html" style="color: red;">Home</a></li>
                 <li><a href="map.html">Map</a></li>
-                <li><a href="logout.php">Logout</a></li>
+                <li><a href="includes/logout.inc.php">Logout</a></li>
                 <li><a href="book_reservation.html">Book Reservation</a></li>
                 <li><a href="help.html">Help</a></li>
             </ul>
             <ul>
                 <li class="responsiveHeader"><a href="index.html" style="color: red;">Home</a></li>
                 <li class="responsiveHeader"><a href="map.html">Map</a></li>
-                <li class="responsiveHeader"><a href="logout.php">Logout</a></li>
+                <li class="responsiveHeader"><a href="includes/logout.inc.php">Logout</a></li>
                 <li class="responsiveHeader"><a href="book_reservation.html">Book Reservation</a></li>
                 <li class="responsiveHeader"><a href="help.html">Help</a></li>
                 <li class="menu-icon" onclick=showSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 -960 960 960" width="50px" fill="#e3e3e3"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg></a></li>
@@ -38,7 +38,7 @@ $fullname = isset($_SESSION['fullname']) ? htmlspecialchars($_SESSION['fullname'
         </nav>
 
         <h2>Welcome to your Dashboard, <?php echo $fullname; ?> </h2>
-        <a class="login-hyperlink" href="logout.php">Logout</a>
+        <a class="login-hyperlink" href="includes/logout.inc.php">Logout</a>
         
         <footer>
             <h3>University of Wolverhampton</h3>
