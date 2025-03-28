@@ -1,11 +1,14 @@
 document.getElementById('book-button').addEventListener('click', function() {
-    const date = document.getElementById('date').value;
-    const time = document.getElementById('time').value;
+    const selectedEvent = document.getElementById('event-select').value;
 
-    if (date === "" || time === "") {
-        alert("Please select both date and time.");
+    if (selectedEvent === "") {
+        alert("Please select an event.");
     } else {
-        document.getElementById('confirmation-box').classList.remove('hidden');
+        const confirmationText = document.getElementById('confirmation-text');
+        confirmationText.textContent = `Your reservation for "${selectedEvent}" has been booked successfully!`;
+
+        const confirmationBox = document.getElementById('confirmation-box');
+        confirmationBox.classList.remove('hidden');
     }
 });
 
