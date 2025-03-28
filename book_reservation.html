@@ -30,28 +30,37 @@
             </ul>
         </nav>
 
-        <div class="wrapper">
-        <div class="reservation-container">
-            <h1>Book a Reservation</h1>
-            <form id="reservation-form">
-                <div>
-                    <label for="date">Select Date:</label>
-                    <input type="date" id="date" name="date" required>
-                </div>
-                <div>
-                    <label for="time">Select Time:</label>
-                    <input type="time" id="time" name="time" required>
-                </div>
-                <button type="button" id="book-button">Book Reservation</button>
-            </form>
-        </div>
-
-        <div id="confirmation-box" class="hidden">
-            <div class="confirmation-message">
-                <p>Reservation has been booked</p>
-                <button id="close-button">Close</button>
+        <div class="wrapper" style="display: flex; justify-content: center; align-items: center; min-height: 80vh;">
+            <div class="reservation-container" style="width: 100%; max-width: 600px; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1); border-radius: 10px; background-color: #fff;">
+                <h1 style="text-align: center;">Book a Reservation</h1>
+                <form id="reservation-form">
+                    <div style="margin-bottom: 15px;">
+                        <label for="event-select">Select Event:</label>
+                        <select id="event-select" required style="width: 100%; padding: 10px; margin-top: 5px;">
+                            <option value="">--Please select an event--</option>
+                            <option value="Cyber Security Open Day - Wolverhampton City Campus: Alan Turing Building MI102c (Saturday 5th July 2025 10am-1pm)">
+                                Cyber Security Open Day - Wolverhampton City Campus: Alan Turing Building MI102c (Saturday 5th July 2025 10am-1pm)
+                            </option>
+                            <option value="Data Science Open Day - Wolverhampton City Campus: Alan Turing Building MI201 (Saturday 12th July 2025 2pm-5pm)">
+                                Data Science Open Day - Wolverhampton City Campus: Alan Turing Building MI201 (Saturday 12th July 2025 2pm-5pm)
+                            </option>
+                            <option value="Software Engineering Open Day - Walsall Campus: Technology Building WS203 (Saturday 19th July 2025 10am-1pm)">
+                                Software Engineering Open Day - Walsall Campus: Technology Building WS203 (Saturday 19th July 2025 10am-1pm)
+                            </option>
+                        </select>
+                    </div>
+                    <div style="text-align: center;">
+                        <button type="button" id="book-button" style="padding: 10px 20px;">Book Reservation</button>
+                    </div>
+                </form>
             </div>
         </div>
+
+        <div id="confirmation-box" class="hidden" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); display:flex; justify-content:center; align-items:center;">
+            <div class="confirmation-message" style="background:white; padding:20px; border-radius:8px; text-align:center;">
+                <p id="confirmation-text">Reservation has been booked</p>
+                <button id="close-button" style="margin-top:10px;" >Close</button>
+            </div>
         </div>
 
         <section id="chatbot">

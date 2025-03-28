@@ -5,47 +5,61 @@ html {
 }
 
 body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #ffffff;
+    color: #333333;
     margin: 0;
-    font-family: Calibri, sans-serif;
+    padding: 0;
+    line-height: 1.6;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: #f4f4f4; /* Light gray background */
+}
+
+/* Container to center content and set max-width */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    flex: 1;
+    text-align: center;
 }
 
 /* Headings */
+h1, h2, h3 {
+    color: #00467f;
+    margin-bottom: 15px;
+}
+
 h1 {
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: bold;
 }
 
 h3 {
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: 1.75rem;
+    font-weight: 600;
 }
 
 /* Main Content */
 main {
-    flex: 1;
-    padding: 20px;
-}
-
-.wrapper {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    justify-content: center;
-    align-items: center;
+    background-color: #f9fbfd;
+    padding: 40px;
+    border-radius: 8px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 /* Navigation Bar */
 nav {
-    background: gray;
+    background-color: #00467f;
     height: 70px;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 15px;
 }
 
 nav ul {
@@ -66,11 +80,12 @@ nav ul li a {
     font-size: 20px;
     color: white;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 600;
+    transition: color 0.3s;
 }
 
 nav ul li a:hover {
-    color: red;
+    color: #ffd700;
 }
 
 /* Sidebar Navigation (For Mobile) */
@@ -80,26 +95,56 @@ nav ul li a:hover {
     right: 0;
     height: 100vh;
     width: 250px;
-    background-color: black;
+    background-color: #00467f;
     display: none;
     flex-direction: column;
-    padding-top: 20px;
+    align-items: center;
+    padding-top: 60px;
     z-index: 999;
 }
 
 .sidebar li {
     width: 100%;
     text-align: center;
+    margin: 15px 0;
+}
+
+.sidebar li a {
+    color: #ffffff;
+    font-size: 1.2rem;
 }
 
 .menu-icon {
     display: none;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 1.8rem;
+}
+
+/* Buttons */
+button, .btn {
+    background-color: #00467f;
+    color: #ffffff;
+    padding: 12px 25px;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+button:hover, .btn:hover {
+    background-color: #00325a;
 }
 
 /* Responsive Design */
 @media (max-width: 800px) {
     .responsiveHeader {
         display: none;
+    }
+
+    .container, main {
+        padding: 15px;
     }
 
     .menu-icon {
@@ -109,65 +154,71 @@ nav ul li a:hover {
     .sidebar {
         width: 100%;
     }
+
+    form div {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    form label {
+        text-align: left;
+        padding-right: 0;
+    }
+
+    form button {
+        width: 100%;
+    }
 }
 
 /* Links */
 a {
+    color: #00467f;
     text-decoration: none;
-    color: white;
+    transition: color 0.3s;
 }
 
 a:hover {
-    color: red;
+    color: #ff6600;
 }
 
 /* Forms */
 form {
-    width: min(300px, 100%);
-    margin: 20px auto;
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.1);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 10px;
+    gap: 15px;
 }
 
-form > div {
-    width: 100%;
+form div {
     display: flex;
     align-items: center;
     gap: 10px;
-    max-width: 400px;
 }
 
 form label {
-    white-space: nowrap;
-    font-size: 1rem;
-    width: 30%;
+    flex: 1;
     text-align: right;
+    font-weight: 600;
     padding-right: 10px;
+    color: #555;
 }
 
 form input {
-    box-sizing: border-box;
-    flex-grow: 1;
-    min-width: 0;
-    height: 50px;
-    padding: 1em;
-    font-size: 1rem;
-    width: 100%;
-    max-width: 300px;
+    flex: 2;
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 1rem;
 }
 
 form button {
-    background-color: blue;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 5px;
+    align-self: center;
+    width: 50%;
 }
 
 form button:hover {
@@ -184,40 +235,56 @@ form button:hover {
     display: none;
 }
 
-/* Confirmation Box */
 #confirmation-box {
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.7);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensures the confirmation box is on top */
+}
+
+.confirmation-message {
+    background: white;
     padding: 20px;
-    color: white;
-    border-radius: 5px;
+    border-radius: 8px;
     text-align: center;
-    display: none;
+    position: relative; /* For additional adjustments */
 }
 
 #close-button {
-    background-color: red;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
+    margin-top: 10px;
+    display: inline-block;
+    text-align: center;
 }
 
 #close-button:hover {
-    background-color: darkred;
+    background-color: #c0392b;
 }
 
 /* Footer */
 footer {
-    background-color: gray;
-    color: white;
+    background-color: #333333;
+    color: #ffffff;
     text-align: center;
-    padding: 10px;
+    padding: 20px 10px;
+    border-radius: 8px 8px 0 0;
     margin-top: auto;
+}
+
+footer svg {
+    width: 40px;
+    height: 40px;
+    margin: 0 10px;
+    transition: transform 0.3s;
+}
+
+footer a:hover svg {
+    transform: scale(1.2);
 }
 
 /* Images */
@@ -253,9 +320,9 @@ img {
     overflow: hidden;
 }
 
-/* Hide initially */
+/* Utility Classes */
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 /* Chatbot Header */
