@@ -1,10 +1,17 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
     <head>
+        <meta charset="UTF-8"> <!-- Ensures proper character encoding, including emojis -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Makes page mobile responsive -->
+        <meta http-equiv="X-UA-Compatible" content="ie=edge"> <!-- Ensures compatibility with older browsers -->
         <title>WLV Companion</title>
-        <link rel="stylesheet" href="style.css?v=1.1"> <!-- Links to css stylesheet -->
-        <script src="header_sidebar.js?v=2.0"></script> <!-- Links to JS file for header sidebar functions-->
+        
+        <!-- Links to external CSS stylesheet -->
+        <link rel="stylesheet" href="style.css"> 
+
+        <!-- Links to JavaScript files -->
+        <script src="js/header_sidebar.js" defer></script> <!-- JS for header sidebar functions -->
+        <script src="js/chatbot.js" defer></script> <!-- JS for chatbot functionality -->
     </head>
 
     <body>
@@ -70,6 +77,27 @@
 
             <p>Don't have an account? <a class="login-hyperlink" href="signup.php">Sign Up</a></p>
         </div>
+
+        <section id="chatbot">
+            <!-- Chatbot Button -->
+            <div id="chatbot-button">💬 Questions?</div>
+
+            <!-- Chatbot Window -->
+            <div id="chatbot-container" class="hidden">
+                <div id="chatbot-header">
+                    <span>Hello! You are speaking with our interactive FAQ Chatbot! 🙂 </span>
+                    <button id="close-chatbot">✖</button>
+                </div>
+                <div id="chatbot-content">
+                    <ul id="faq-categories">
+                        <li data-category="category1">📂 | Category 1</li>
+                        <li data-category="category2">📂 | Category 2</li>
+                        <li data-category="category3">📂 | Category 3</li>
+                    </ul>
+                    <div id="faq-questions" class="hidden"></div>
+                </div>
+            </div>
+        </section>
 
         <footer>
             <h3>University of Wolverhampton</h3>
