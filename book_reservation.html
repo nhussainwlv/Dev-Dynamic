@@ -38,10 +38,10 @@
         </nav>
 
         <div class="wrapper" style="display: flex; justify-content: center; align-items: center; min-height: 80vh;">
-            <div class="reservation-container" style="width: 100%; max-width: 600px; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1); border-radius: 10px; background-color: #fff;">
+            <div class="reservation-container" style="width: 100%; max-width: 600px; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1); border-radius: 10px; background-color: #fff; min-height: 300px;">
                 <h1 style="text-align: center;">Book a Reservation</h1>
-                <form id="reservation-form">
-                    <div style="margin-bottom: 15px;">
+                <form id="reservation-form" style="display: flex; flex-direction: column; gap: 20px;">
+                    <div style="margin-bottom: 15px; display: flex; flex-direction: column; gap: 10px;">
                         <label for="event-select">Select Event:</label>
                         <select id="event-select" required style="width: 100%; padding: 10px; margin-top: 5px;">
                             <option value="">--Please select an event--</option>
@@ -55,10 +55,17 @@
                                 Software Engineering Open Day - Walsall Campus: Technology Building WS203 (Saturday 19th July 2025 10am-1pm)
                             </option>
                         </select>
+        
+                        <label for="amount-select" style="margin-top: 10px;">Amount of People Attending:</label>
+                        <select id="amount-select" required style="width: 100%; padding: 10px; margin-top: 5px;">
+                            <option value="">--Please select how many people will be attending--</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4 (Max)</option>
+                        </select>
                     </div>
-                    <div style="text-align: center;">
-                        <button type="button" id="book-button" style="padding: 10px 20px;">Book Reservation</button>
-                    </div>
+                    <button type="button" id="book-button" style="padding: 10px 20px;">Book Reservation</button>
                 </form>
             </div>
         </div>

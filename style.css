@@ -302,7 +302,7 @@ img {
     background-color: #AF69EE;
     color: white;
     padding: 10px 15px;
-    border-radius: 50%;
+    border-radius: 10px;
     cursor: pointer;
     font-size: 20px;
 }
