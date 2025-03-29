@@ -1,146 +1,45 @@
 <?php
-session_start(); // Start the session at the very top
-if (!isset($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+session_start();
+if (!isset($_SESSION['SID'])) {
+    header("Location: login.php");
+    exit;
 }
+
+$fullname = isset($_SESSION['fullName']) ? htmlspecialchars($_SESSION['fullName'], ENT_QUOTES, 'UTF-8') : 'Staff User';
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8"> <!-- Ensures proper character encoding, including emojis -->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Makes page mobile responsive -->
-        <meta http-equiv="X-UA-Compatible" content="ie=edge"> <!-- Ensures compatibility with older browsers -->
-        <title>WLV Companion</title>
-        
-        <!-- Links to external CSS stylesheet -->
-        <link rel="stylesheet" href="style.css"> 
 
-        <!-- Links to JavaScript files -->
-        <script src="js/header_sidebar.js" defer></script> <!-- JS for header sidebar functions -->
-        <script src="js/chatbot.js" defer></script> <!-- JS for chatbot functionality -->
+<html>
+    <head>
+        <title>WLV Companion Dashboard</title>
+        <link rel="stylesheet" href="style.css?v=1.1"> <!-- Links to css stylesheet -->
+        <script src="header_sidebar.js?v=1.1"></script> <!-- Links to JS file for header sidebar functions-->
     </head>
 
     <body>
         <nav>
             <ul class="sidebar">
                 <li onclick=hideSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></a></li>
-                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html" style="color: red;">Home</a></li>
                 <li><a href="map.html">Map</a></li>
-                <li><a href="signup.php" style="color: red;">Sign Up</a></li>
-                <li><a href="login.php">Log In</a></li>
+                <li><a href="includes/logout.inc.php">Logout</a></li>
                 <li><a href="book_reservation.html">Book Reservation</a></li>
                 <li><a href="help.html">Help</a></li>
             </ul>
             <ul>
-                <li class="responsiveHeader"><a href="index.html">Home</a></li>
+                <li class="responsiveHeader"><a href="index.html" style="color: red;">Home</a></li>
                 <li class="responsiveHeader"><a href="map.html">Map</a></li>
-                <li class="responsiveHeader"><a href="signup.php" style="color: red;">Sign Up</a></li>
-                <li class="responsiveHeader"><a href="login.php">Log In</a></li>
+                <li class="responsiveHeader"><a href="includes/logout.inc.php">Logout</a></li>
                 <li class="responsiveHeader"><a href="book_reservation.html">Book Reservation</a></li>
                 <li class="responsiveHeader"><a href="help.html">Help</a></li>
                 <li class="menu-icon" onclick=showSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 -960 960 960" width="50px" fill="#e3e3e3"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg></a></li>
             </ul>
         </nav>
 
-        <?php
-        if (isset($_GET["errorcode"])) {
-
-            if($_GET["errorcode"] == "MissingArgument") {
-                echo '<div class="alert alert-danger" role="alert">
-                You have not entered all boxes! Please try again.
-                </div>';
-            }
-
-            if($_GET["errorcode"] == "InvalidEmail") {
-                echo '<div class="alert alert-danger" role="alert">
-                Entered E-Mail is invalid! Please try again.
-                </div>';
-            }
-
-            if($_GET["errorcode"] == "InvalidCharactersInput") {
-                echo '<div class="alert alert-danger" role="alert">
-                You have entered invalid characters! Please try again.
-                </div>';
-            }
-
-            if($_GET["errorcode"] == "InvalidPasswordLength") {
-                echo '<div class="alert alert-danger" role="alert">
-                Your password length is invalid! Please try again.
-                </div>';
-            }
-
-            if($_GET["errorcode"] == "EmailsDontMatch") {
-                echo '<div class="alert alert-danger" role="alert">
-                Entered E-mails do not match! Please try again.
-                </div>';
-            }
-
-            if($_GET["errorcode"] == "PasswordsDontMatch") {
-                echo '<div class="alert alert-danger" role="alert">
-                Entered passwords do not match! Please try again.
-                
-                </div>';
-            }
-
-            if($_GET["errorcode"] == "none") {
-                echo '<div class="alert alert-success" role="alert">
-                Account created successfully!
-                </div>';
-            }
-
-        }
-
-        ?>
-
-        <div>
-            <h1>Create an Account</h1>
-            <p id="error-message" class="hidden"></p>
-
-            <form action="includes/signup.inc.php" id="sign_up_form" method="POST">
-                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-                <div>
-                    <input type="text" name="FullName" placeholder="Full Name" id="fullname-input" required>
-                </div>
-                <div>
-                    <input type="email" name="Email" placeholder="Email" id="email-input" required>
-                </div>
-                <div>
-                    <input type="email" name="ConfirmEmail" placeholder="Confirm Email" id="confirm-email-input" required>
-                </div>
-                <div>
-                    <input type="password" name="Password" id="password-input" placeholder="Password" required>
-                </div>
-                <div>
-                    <input type="password" name="ConfirmPassword" id="confirm-password-input" placeholder="Confirm Password" required>
-                </div>
-                <button type="submit" name="Submit">Sign Up</button>
-            </form>
-
-            <p>Already have an account? <a class="login-hyperlink" href="login.php">Log In</a></p>
-        </div>
-
-        <section id="chatbot">
-            <!-- Chatbot Button -->
-            <div id="chatbot-button">💬 Questions?</div>
-
-            <!-- Chatbot Window -->
-            <div id="chatbot-container" class="hidden">
-                <div id="chatbot-header">
-                    <span>Hello! You are speaking with our interactive FAQ Chatbot! 🙂 </span>
-                    <button id="close-chatbot">✖</button>
-                </div>
-                <div id="chatbot-content">
-                    <ul id="faq-categories">
-                        <li data-category="category1">📂 | Category 1</li>
-                        <li data-category="category2">📂 | Category 2</li>
-                        <li data-category="category3">📂 | Category 3</li>
-                    </ul>
-                    <div id="faq-questions" class="hidden"></div>
-                </div>
-            </div>
-        </section>
-
+        <h2>Welcome to your Dashboard, <?php echo $fullname; ?> </h2>
+        <a class="login-hyperlink" href="includes/logout.inc.php">Logout</a>
+        
         <footer>
             <h3>University of Wolverhampton</h3>
             <p>Follow us on all Socials!<br>

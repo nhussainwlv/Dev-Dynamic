@@ -31,11 +31,19 @@ if ($_SESSION['failed_login_attempts'] >= $max_attempts) {
 if (isset($_POST["Submit"])) {
     $userEmail = filter_var($_POST['Email'], FILTER_SANITIZE_EMAIL);
     $userPassword = $_POST['Password'];
+    $userType = $_POST['userType']; // Get user type (guest or staff)
 
     if (missingLoginArgument($userEmail, $userPassword) !== false) {
         header("location: ../login.php?errorcode=MissingArgument");
         exit();
     }
+
+        // Determine which table to check based on user type
+        if ($userType === "staff") {
+            $table = "openday_staff_info";
+        } else {
+            $table = "openday_user_info";
+        }
 
     // Check if user exists in the database
     $userExists = existingUserEmail($dbconnection, $userEmail);
@@ -62,11 +70,16 @@ if (isset($_POST["Submit"])) {
     // Set session variables for the user
     $_SESSION["user_id"] = $userExists["UID"];
     $_SESSION["fullname"] = $userExists["userName"]; // Store full name
+    $_SESSION["userType"] = $userType;
 
-    loginUser($dbconnection, $userEmail, $userPassword);
-    header("location: ../dashboard.php?errorcode=LoginSuccessful");
+    // Redirect based on user type
+    if ($userType === "staff") {
+        header("location: ../staff_dashboard.php?errorcode=LoginSuccessful");
+    } else {
+        header("location: ../dashboard.php?errorcode=LoginSuccessful");
+    }
     exit();
 }
 
-header("location: ../login.php?errorcode=Unauthorized");
+header("location: ../login.php?errorcode=Unauthorised");
 exit();

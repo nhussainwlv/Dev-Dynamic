@@ -12,6 +12,7 @@
         <!-- Links to JavaScript files -->
         <script src="js/header_sidebar.js" defer></script> <!-- JS for header sidebar functions -->
         <script src="js/chatbot.js" defer></script> <!-- JS for chatbot functionality -->
+        <script src="js/toggleLogin.js" defer></script> <!-- JS for switching login type -->
     </head>
 
     <body>
@@ -61,11 +62,15 @@
 
         ?>
 
-        <div class="wrapper">
+        <div>
             <h1>Login to Your Account</h1>
             <p id="error-message" class="hidden"></p>
 
+            <!-- Toggle between Guest and Staff Login -->
+            <button id="toggleLogin">Switch to Staff Login</button>
+
             <form action="includes/login.inc.php" method="POST">
+                <input type="hidden" id="userType" name="userType" value="guest"> <!-- Hidden field to switch login type -->
                 <div>
                     <input type="email" name="Email" placeholder="Email" required>
                 </div>

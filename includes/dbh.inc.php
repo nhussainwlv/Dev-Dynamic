@@ -13,18 +13,28 @@ if ($dbconnection->connect_error) {
     die("Connection failed: " . $dbconnection->connect_error);
 }
 
-// Create the table if it doesn't exist already
-$table_sql = "CREATE TABLE IF NOT EXISTS openday_user_info (
+// Create GUEST table if it doesn't exist already
+$guest_table_sql = "CREATE TABLE IF NOT EXISTS openday_user_info (
     UID INT AUTO_INCREMENT PRIMARY KEY,
     fullName VARCHAR(255) NOT NULL,
     userEmail VARCHAR(255) NOT NULL UNIQUE,
     userPassword VARCHAR(255) NOT NULL
 )";
 
-if ($dbconnection->query($table_sql) === TRUE) {
-    echo "Table 'openday_user_info' created successfully.";
-} else {
-    die("Error creating table: " . $dbconnection->error);
+if ($dbconnection->query($guest_table_sql) !== TRUE) {
+    die("Error creating guest table: " . $dbconnection->error);
+}
+
+// Create Staff Table (if not exists)
+$staff_table_sql = "CREATE TABLE IF NOT EXISTS openday_staff_info (
+    SID INT AUTO_INCREMENT PRIMARY KEY,
+    staffName VARCHAR(255) NOT NULL,
+    staffEmail VARCHAR(255) NOT NULL UNIQUE,
+    staffPassword VARCHAR(255) NOT NULL
+)";
+
+if ($dbconnection->query($staff_table_sql) !== TRUE) {
+    die("Error creating staff table: " . $dbconnection->error);
 }
 
 ?>
