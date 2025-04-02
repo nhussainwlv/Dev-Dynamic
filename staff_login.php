@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['SID'])) {
-    header("Location: staff_dashboard.php");
+    header("Location: dashboards/staff_dashboard.php");
     exit;
 }
 ?>

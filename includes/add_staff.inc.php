@@ -20,7 +20,7 @@ if (isset($_POST["addStaff"])) {
     $result = $stmt_check->get_result();
 
     if ($result->num_rows > 0) {
-        header("Location: ../admin_dashboard.php?status=emailExists");
+        header("Location: ../dashboards/admin_dashboard.php?status=emailExists");
         exit();
     }
 
@@ -32,20 +32,20 @@ if (isset($_POST["addStaff"])) {
     $stmt_insert = $dbconnection->prepare($sql_insert);
     
     if (!$stmt_insert) {
-        header("Location: ../admin_dashboard.php?status=stmtError");
+        header("Location: ../dashboards/admin_dashboard.php?status=stmtError");
         exit();
     }
 
     $stmt_insert->bind_param("sss", $staffName, $staffEmail, $hashedPassword);
     
     if ($stmt_insert->execute()) {
-        header("Location: ../admin_dashboard.php?status=success");
+        header("Location: ../dashboards/admin_dashboard.php?status=success");
     } else {
-        header("Location: ../admin_dashboard.php?status=stmtError");
+        header("Location: ../dashboards/admin_dashboard.php?status=stmtError");
     }
 
     exit();
 }
 
-header("Location: ../admin_dashboard.php");
+header("Location: ../dashboards/admin_dashboard.php");
 exit();

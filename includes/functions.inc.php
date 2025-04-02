@@ -83,6 +83,6 @@ function loginUser($dbconnection, $userEmail, $userPassword) {
 
     session_start();
     $_SESSION["UID"] = $userExists["UID"];
-    header("location: ../dashboard.php?errorcode=LoginSuccessful");
+    header("location: ../dashboards/dashboard.php?errorcode=LoginSuccessful");
     exit();
 }

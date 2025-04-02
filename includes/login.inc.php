@@ -64,7 +64,7 @@ if (isset($_POST["Submit"])) {
     $_SESSION["fullname"] = $userExists["userName"]; // Store full name
 
     loginUser($dbconnection, $userEmail, $userPassword);
-    header("location: ../dashboard.php?errorcode=LoginSuccessful");
+    header("location: ../dashboards/dashboard.php?errorcode=LoginSuccessful");
     exit();
 }
 
