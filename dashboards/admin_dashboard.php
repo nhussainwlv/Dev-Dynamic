@@ -1,44 +1,69 @@
 <?php
 session_start();
-if (!isset($_SESSION['UID'])) {
-    header("Location: login.php");
+if (!isset($_SESSION['SID']) || $_SESSION["staffEmail"] !== "admin@wlv.ac.uk") {
+    header("Location: ../staff_login.php");
     exit;
 }
 
-$fullname = isset($_SESSION['fullName']) ? htmlspecialchars($_SESSION['fullName'], ENT_QUOTES, 'UTF-8') : 'User';
+$adminName = htmlspecialchars($_SESSION['staffName'], ENT_QUOTES, 'UTF-8');
 ?>
 
 <!DOCTYPE html>
 
 <html>
     <head>
-        <title>WLV Companion Dashboard</title>
-        <link rel="stylesheet" href="style.css?v=1.1"> <!-- Links to css stylesheet -->
-        <script src="header_sidebar.js?v=1.1"></script> <!-- Links to JS file for header sidebar functions-->
+        <title>WLV Admin Dashboard</title>
+        <link rel="stylesheet" href="../style.css?v=1.1"> <!-- Links to css stylesheet -->
+        <script src="../js/header_sidebar.js?v=1.1"></script> <!-- Links to JS file for header sidebar functions-->
     </head>
 
     <body>
         <nav>
             <ul class="sidebar">
                 <li onclick=hideSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></a></li>
-                <li><a href="index.html" style="color: red;">Home</a></li>
-                <li><a href="map.html">Map</a></li>
-                <li><a href="includes/logout.inc.php">Logout</a></li>
-                <li><a href="book_reservation.html">Book Reservation</a></li>
-                <li><a href="help.html">Help</a></li>
+                <li><a href="../index.html" style="color: red;">Home</a></li>
+                <li><a href="../map.html">Map</a></li>
+                <li><a href="../includes/logout.inc.php">Logout</a></li>
+                <li><a href="../book_reservation.html">Book Reservation</a></li>
+                <li><a href="../help.html">Help</a></li>
             </ul>
             <ul>
-                <li class="responsiveHeader"><a href="index.html" style="color: red;">Home</a></li>
-                <li class="responsiveHeader"><a href="map.html">Map</a></li>
-                <li class="responsiveHeader"><a href="includes/logout.inc.php">Logout</a></li>
-                <li class="responsiveHeader"><a href="book_reservation.html">Book Reservation</a></li>
-                <li class="responsiveHeader"><a href="help.html">Help</a></li>
+                <li class="responsiveHeader"><a href="../index.html" style="color: red;">Home</a></li>
+                <li class="responsiveHeader"><a href="../map.html">Map</a></li>
+                <li class="responsiveHeader"><a href="../includes/logout.inc.php">Logout</a></li>
+                <li class="responsiveHeader"><a href="../book_reservation.html">Book Reservation</a></li>
+                <li class="responsiveHeader"><a href="../help.html">Help</a></li>
                 <li class="menu-icon" onclick=showSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 -960 960 960" width="50px" fill="#e3e3e3"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg></a></li>
             </ul>
         </nav>
 
-        <h2>Welcome to your Dashboard, <?php echo $fullname; ?> </h2>
-        <a class="login-hyperlink" href="includes/logout.inc.php">Logout</a>
+        <h2>Welcome, <?php echo $adminName; ?></h2>
+        <p>This is the Administrator Dashboard.</p>
+        <a class="login-hyperlink" href="../includes/logout.inc.php">Logout</a>
+
+        <p>This is the admin dashboard. You can add new staff accounts below.</p>
+
+        <!-- Form to add new staff -->
+        <h3>Add New Staff Member</h3>
+        <form action="../includes/add_staff.inc.php" method="POST">
+            <input type="text" name="staffName" placeholder="Full Name" required>
+            <input type="email" name="staffEmail" placeholder="Email" required>
+            <input type="password" name="staffPassword" placeholder="Password" required>
+            <button type="submit" name="addStaff">Add Staff</button>
+        </form>
+
+        <!-- Display error/success messages -->
+        <?php
+            if (isset($_GET["status"])) {
+                if ($_GET["status"] == "success") {
+                    echo '<p style="color: green;">Staff account created successfully!</p>';
+                } elseif ($_GET["status"] == "emailExists") {
+                    echo '<p style="color: red;">Error: Email already exists!</p>';
+                } elseif ($_GET["status"] == "stmtError") {
+                    echo '<p style="color: red;">Database error, please try again.</p>';
+                }
+            }
+        ?>
         
         <footer>
             <h3>University of Wolverhampton</h3>

@@ -33,10 +33,10 @@ if (isset($_POST["Submit"])) {
     // Redirect to appropriate dashboard
     if ($staff["staffEmail"] === "admin@wlv.ac.uk") {
         $_SESSION["isAdmin"] = true;
-        header("location: ../admin_dashboard.php");
+        header("location: ../dashboards/admin_dashboard.php");
     } else {
         $_SESSION["isAdmin"] = false;
-        header("location: ../staff_dashboard.php");
+        header("location: ../dashboards/staff_dashboard.php");
     }
     exit();
 }
