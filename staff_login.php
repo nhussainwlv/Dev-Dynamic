@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (isset($_SESSION['SID'])) {
+    header("Location: staff_dashboard.php");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -68,13 +76,12 @@
         ?>
 
         <div class="wrapper">
-            <h1>Login to Your Account</h1>
-
-            <p><a class="login-hyperlink" href="staff_login.php">Login as Staff</a></p>
+            <h1>Staff Login</h1>
+            <p><a class="login-hyperlink" href="login.php">Login as Guest/Student</a></p>
 
             <p id="error-message" class="hidden"></p>
 
-            <form action="includes/login.inc.php" method="POST">
+            <form action="includes/staff_login.inc.php" method="POST">
                 <div>
                     <input type="email" name="Email" placeholder="Email" required>
                 </div>
@@ -84,7 +91,7 @@
                 <button type="submit" name="Submit">Log In</button>
             </form>
 
-            <p>Don't have an account? <a class="login-hyperlink" href="signup.php">Sign Up</a></p>
+            <p>If you have lost access to your Staff Account, please contact an Administrator, <a class="login-hyperlink" href="Tel:01902 321000">here.</a></p>
         </div>
 
         <section id="chatbot">
