@@ -1,11 +1,13 @@
 <?php
 session_start();
-if (!isset($_SESSION['SID']) || $_SESSION["staffEmail"] === "admin@wlv.ac.uk") {
+if (!isset($_SESSION['SID']) || $_SESSION["staffRole"] === "ADMIN") {
     header("Location: admin_dashboard.php");
     exit;
 }
 
 $staffName = htmlspecialchars($_SESSION['staffName'], ENT_QUOTES, 'UTF-8');
+$staffModule = htmlspecialchars($_SESSION['staffModule'], ENT_QUOTES, 'UTF-8');
+$staffRole = htmlspecialchars($_SESSION['staffRole'], ENT_QUOTES, 'UTF-8');
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +40,7 @@ $staffName = htmlspecialchars($_SESSION['staffName'], ENT_QUOTES, 'UTF-8');
         </nav>
 
         <h2>Welcome, <?php echo $staffName; ?>!</h2>
-        <p>This is the Staff Dashboard.</p>
+        <p>This is the Staff Dashboard, you are logged in as a <?php echo $staffModule . ' ' . $staffRole; ?>!</p>
         <a class="login-hyperlink" href="../includes/logout.inc.php">Logout</a>
 
         <h3>Change Password</h3>
