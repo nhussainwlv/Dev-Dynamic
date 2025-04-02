@@ -29,9 +29,11 @@ if (isset($_POST["Submit"])) {
     $_SESSION["SID"] = $staff["SID"];
     $_SESSION["staffName"] = $staff["staffName"];
     $_SESSION["staffEmail"] = $staff["staffEmail"];
+    $_SESSION["staffModule"] = $staff["staffModule"];
+    $_SESSION["staffRole"] = $staff["staffRole"];
 
     // Redirect to appropriate dashboard
-    if ($staff["staffEmail"] === "admin@wlv.ac.uk") {
+    if ($staff["staffRole"] === "ADMIN") {
         $_SESSION["isAdmin"] = true;
         header("location: ../dashboards/admin_dashboard.php");
     } else {

@@ -2,7 +2,7 @@
 session_start();
 require_once 'dbh.inc.php';
 
-if (!isset($_SESSION['SID']) || $_SESSION["staffEmail"] !== "admin@wlv.ac.uk") {
+if (!isset($_SESSION['SID']) || $_SESSION["staffRole"] !== "ADMIN") {
     header("Location: ../staff_login.php");
     exit();
 }
@@ -11,6 +11,8 @@ if (isset($_POST["addStaff"])) {
     $staffName = filter_var($_POST["staffName"]);
     $staffEmail = filter_var($_POST["staffEmail"], FILTER_SANITIZE_EMAIL);
     $staffPassword = $_POST["staffPassword"];
+    $staffModule = !empty($_POST["staffModule"]) ? $_POST["staffModule"] : "Unspecified"; // Default to "Unspecified"
+    $staffRole = !empty($_POST["staffRole"]) ? $_POST["staffRole"] : "Unspecified"; // Default to "Unspecified"
 
     // Check if email already exists
     $sql_check = "SELECT * FROM openday_staff_info WHERE staffEmail = ?";
@@ -28,7 +30,7 @@ if (isset($_POST["addStaff"])) {
     $hashedPassword = password_hash($staffPassword, PASSWORD_DEFAULT);
 
     // Insert new staff member
-    $sql_insert = "INSERT INTO openday_staff_info (staffName, staffEmail, staffPassword) VALUES (?, ?, ?)";
+    $sql_insert = "INSERT INTO openday_staff_info (staffName, staffEmail, staffPassword, staffModule, staffRole) VALUES (?, ?, ?, ?, ?)";
     $stmt_insert = $dbconnection->prepare($sql_insert);
     
     if (!$stmt_insert) {
@@ -36,7 +38,7 @@ if (isset($_POST["addStaff"])) {
         exit();
     }
 
-    $stmt_insert->bind_param("sss", $staffName, $staffEmail, $hashedPassword);
+    $stmt_insert->bind_param("sssss", $staffName, $staffEmail, $hashedPassword, $staffModule, $staffRole);
     
     if ($stmt_insert->execute()) {
         header("Location: ../dashboards/admin_dashboard.php?status=success");

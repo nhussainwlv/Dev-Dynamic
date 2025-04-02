@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['SID']) || $_SESSION["staffEmail"] !== "admin@wlv.ac.uk") {
+if (!isset($_SESSION['SID']) || $_SESSION["staffRole"] !== "ADMIN") {
     header("Location: ../staff_login.php");
     exit;
 }
@@ -41,16 +41,34 @@ $adminName = htmlspecialchars($_SESSION['staffName'], ENT_QUOTES, 'UTF-8');
         <p>This is the Administrator Dashboard.</p>
         <a class="login-hyperlink" href="../includes/logout.inc.php">Logout</a>
 
-        <p>This is the admin dashboard. You can add new staff accounts below.</p>
-
         <!-- Form to add new staff -->
         <h3>Add New Staff Member</h3>
+        <p>You can add new staff accounts below.</p>
         <form action="../includes/add_staff.inc.php" method="POST">
+        <label>Enter Information:</label>
             <input type="text" name="staffName" placeholder="Full Name" required>
             <input type="email" name="staffEmail" placeholder="Email" required>
             <input type="password" name="staffPassword" placeholder="Password" required>
+
+            <label for="staffModule">Select Module:</label>
+            <select name="staffModule" id="staffModule">
+                <option value="">Unspecified</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Cybersecurity">Cybersecurity</option>
+                <option value="Data Science">Data Science</option>
+                <option value="Software Engineering">Software Engineering</option>
+            </select>
+
+            <label for="staffRole">Select Role:</label>
+            <select name="staffRole" id="staffRole">
+                <option value="">Unspecified</option>
+                <option value="Lecturer">Lecturer</option>
+                <option value="Module Leader">Module Leader</option>
+            </select>
+
             <button type="submit" name="addStaff">Add Staff</button>
         </form>
+
 
         <!-- Display error/success messages -->
         <?php
