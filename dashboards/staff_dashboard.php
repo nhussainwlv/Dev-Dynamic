@@ -17,6 +17,7 @@ $staffRole = htmlspecialchars($_SESSION['staffRole'], ENT_QUOTES, 'UTF-8');
         <title>WLV Staff Dashboard</title>
         <link rel="stylesheet" href="../style.css?v=1.1"> <!-- Links to css stylesheet -->
         <script src="../js/header_sidebar.js?v=1.1"></script> <!-- Links to JS file for header sidebar functions-->
+        <script src="../js/event_form_validation.js"></script> <!-- Links to JS file for eventRoom functions-->
     </head>
 
     <body>
@@ -66,6 +67,60 @@ $staffRole = htmlspecialchars($_SESSION['staffRole'], ENT_QUOTES, 'UTF-8');
                 }
             }
         ?>
+
+        <h3>Add New Event</h3>
+        <p>You can add events below.</p>
+        <form action="../includes/add_event.inc.php" method="POST">
+
+        <label>Enter Information:</label>
+
+            <!-- Select Event Module -->
+            <label for="eventModule">Select Module:</label>
+            <select name="eventModule" id="eventModule">
+                <option value="">Unspecified</option>
+                <?php
+                // Allow module selection based on staff role
+                if ($_SESSION['staffRole'] === 'Module Leader') {
+                    echo '<option value="Computer Science">Computer Science</option>';
+                    echo '<option value="Cybersecurity">Cybersecurity</option>';
+                    echo '<option value="Data Science">Data Science</option>';
+                    echo '<option value="Software Engineering">Software Engineering</option>';
+                } else {
+                    // If staff is a Lecturer, restrict them to their own module
+                    echo '<option value="' . $_SESSION['staffModule'] . '">' . $_SESSION['staffModule'] . '</option>';
+                }
+                ?>
+            </select>
+
+            <!-- Select Event Type -->
+            <label for="eventType">Select Event Type:</label>
+            <select name="eventType" id="eventType">
+                <option value="">Unspecified</option>
+                <option value="Open Day">Open Day</option>
+                <option value="Guest Lecture">Guest Lecture</option>
+            </select>
+
+            <!-- Select Event Location -->
+            <label for="eventLocation">Select Event Location:</label>
+            <select name="eventLocation" id="eventLocation">
+                <option value="">Unspecified</option>
+                <option value="Wolverhampton City Campus: Alan Turing Building">Wolverhampton City Campus: Alan Turing Building</option>
+                <option value="Wolverhampton City Campus: Millennium City Building">Wolverhampton City Campus: Millennium City Building</option>
+                <option value="Wolverhampton City Campus: Wulfruna Building">Wolverhampton City Campus: Wulfruna Building</option>
+            </select>
+
+            <!-- Select Event Room -->
+            <label for="eventRoom">Select Event Room:</label>
+            <select name="eventRoom" id="eventRoom">
+                <option value="">Unspecified</option>
+            </select>
+
+            <!-- Select Event Date & Time -->
+            <label for="eventDateTime">Select Event Date & Time:</label>
+            <input type="datetime-local" name="eventDateTime" id="eventDateTime" required>
+
+            <button type="submit" name="addEvent">Add Event</button>
+        </form>
         
         <footer>
             <h3>University of Wolverhampton</h3>
