@@ -43,23 +43,34 @@
             </a>
         </nav>
 
-        <div class="wrapper"> 
-            <h1>Require Help?</h1>
-            <h2>Submit an inquiry here!</h2>
-            <form id="help_form">
-                <div>
-                    <input type="text" name="fullname" id="fullname-input" placeholder="Full Name:">
-                </div>
+        <!-- Help Form Submission -->
+        <h1>Require Help?</h1>
+        <h2>Submit an inquiry here!</h2>
+        <form action="../includes/help_form.inc.php" method="POST">
+        <label>Enter Information:</label>
 
-                <div>
-                    <input type="email" name="email" id="email-input" placeholder="Email Address:">
-                </div>
+            <!-- Full Name Input -->
+            <input type="text" name="fullname" id="fullname-input" placeholder="Full Name:">
 
-                <div>
-                    <textarea name="feedback" id="feedback-input" cols="40" rows="10" placeholder="Write your message:"></textarea>
-                </div>
+            <!-- Email Input -->
+            <input type="email" name="email" id="email-input" placeholder="Email Address:">
 
-                <button type="submit">Submit</button>
+            <!-- Select Issue from given options -->
+            <label for="feedbackIssue">Select Issue(s):</label>
+            <select name="feedbackIssue" id="feedbackIssue">
+            <option value="">Unlisted</option>
+            <option value="">Accomodation Help</option>
+            <option value="">Course Help</option>
+            <option value="">Parking Help</option>
+            <option value="">Reservation Help</option>
+            <option value="">Signup/Login Issue</option>
+            </select>
+
+            <!-- Enter Feedback Content -->
+            <textarea name="feedback" id="feedback-input" cols="40" rows="10" placeholder="Write your message:"></textarea>
+
+            <!-- Submit Button -->
+            <button type="submit" name="submitFeedback">Submit Feedback</button>
             </form>
 
             <p>Or, feel free to contact us at:<br>
