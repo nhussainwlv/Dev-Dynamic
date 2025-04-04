@@ -5,6 +5,8 @@ if (!isset($_SESSION['SID']) || $_SESSION["staffRole"] === "ADMIN") {
     exit;
 }
 
+require_once '../includes/dbh.inc.php';
+
 $staffName = htmlspecialchars($_SESSION['staffName'], ENT_QUOTES, 'UTF-8');
 $staffModule = htmlspecialchars($_SESSION['staffModule'], ENT_QUOTES, 'UTF-8');
 $staffRole = htmlspecialchars($_SESSION['staffRole'], ENT_QUOTES, 'UTF-8');
@@ -15,8 +17,8 @@ $staffRole = htmlspecialchars($_SESSION['staffRole'], ENT_QUOTES, 'UTF-8');
 <html>
     <head>
         <title>WLV Staff Dashboard</title>
-        <link rel="stylesheet" href="../style.css?v=1.1"> <!-- Links to css stylesheet -->
-        <script src="../js/header_sidebar.js?v=1.1"></script> <!-- Links to JS file for header sidebar functions-->
+        <link rel="stylesheet" href="../style.css"> <!-- Links to css stylesheet -->
+        <script src="../js/header_sidebar.js"></script> <!-- Links to JS file for header sidebar functions-->
         <script src="../js/event_form_validation.js"></script> <!-- Links to JS file for eventRoom functions-->
     </head>
 
@@ -40,13 +42,22 @@ $staffRole = htmlspecialchars($_SESSION['staffRole'], ENT_QUOTES, 'UTF-8');
             </ul>
         </nav>
 
+
+        <!-- Welcome message, displaying the logged in staff's Name, Module taught and Staff Role -->
         <h2>Welcome, <?php echo $staffName; ?>!</h2>
         <p>This is the Staff Dashboard, you are logged in as a <?php echo $staffModule . ' ' . $staffRole; ?>!</p>
-        <a class="login-hyperlink" href="../includes/logout.inc.php">Logout</a>
+
+        <!-- Logout button -->
+        <form action="../includes/logout.inc.php" method="POST">
+        <label>Click the button below to logout:</label>
+            <button type="submit" name="logout">Logout</button>
+        </form>
 
         <h3>Change Password</h3>
         
         <form action="../includes/change_password.inc.php" method="POST">
+        <label>Enter Information:</label>
+
             <input type="password" name="currentPassword" placeholder="Current Password" required>
             <input type="password" name="newPassword" placeholder="New Password" required>
             <input type="password" name="confirmNewPassword" placeholder="Confirm New Password" required>
@@ -68,10 +79,114 @@ $staffRole = htmlspecialchars($_SESSION['staffRole'], ENT_QUOTES, 'UTF-8');
             }
         ?>
 
+
+        <h3>Staff Announcements</h3>
+
+        <!-- VIEW ANNOUNCEMENTS -->
+        <?php
+            // Set visibility filter, limiting guests and lecturers
+            $visibilityFilter = "'All', 'Guests'"; // Everyone can see "All" and "Guests"
+
+            if ($staffRole === "Lecturer") {
+                $visibilityFilter .= ", 'Lecturers'"; // Adds lecturers to be able to see "Lecturers" filter
+            } elseif ($staffRole === "Module Leader") {
+                $visibilityFilter .= ", 'Lecturers', 'Module Leaders'"; // Adds Module Leaders to be able to see "Module Leaders" filter + all other filters
+            }
+
+            // Fetch announcements with the author's name
+            $sql = "SELECT openday_announcements.announcementModule, 
+                        openday_announcements.announcementVisibility, 
+                        openday_announcements.announcementContent, 
+                        openday_staff_info.staffName 
+                    FROM openday_announcements
+                    JOIN openday_staff_info 
+                        ON openday_announcements.staffID = openday_staff_info.SID
+                    WHERE openday_announcements.announcementVisibility IN ($visibilityFilter)
+                    ORDER BY openday_announcements.announcementID DESC"; // Show newest first
+
+            $result = $dbconnection->query($sql);
+
+            // Display the announcements
+            if ($result->num_rows > 0) {
+                echo "<h3>Announcements</h3>";
+                while ($row = $result->fetch_assoc()) {
+                    echo "<div class='announcement-box'>";
+                    echo "<p><strong>Module:</strong> " . htmlspecialchars($row["announcementModule"]) . "</p>";
+                    echo "<p><strong>By:</strong> " . htmlspecialchars($row["staffName"]) . "</p>";
+                    echo "<p><strong>Visibility:</strong> " . htmlspecialchars($row["announcementVisibility"]) . "</p>";
+                    echo "<p><strong>Announcement:</strong> " . nl2br(htmlspecialchars($row["announcementContent"])) . "</p>";
+                    echo "</div><hr>";
+                }
+            } else {
+                echo "<p>No announcements available.</p>";
+            }
+        ?>
+
+        <!-- ANNOUNCEMENTS CREATION -->
+        <p>You can add announcements below.</p>
+        <form action="../includes/add_announcement.inc.php" method="POST">
+        <label>Enter Information:</label>
+
+            <!-- Select Announcement Module -->
+            <label for="announcementModule">Select Module(s):</label>
+            <select name="announcementModule" id="announcementModule">
+                <option value="">Unspecified</option>
+                <?php
+                // Allow module selection based on staff role
+                if ($_SESSION['staffRole'] === 'Module Leader') {
+                    echo '<option value="Computer Science">Computer Science</option>';
+                    echo '<option value="Cybersecurity">Cybersecurity</option>';
+                    echo '<option value="Data Science">Data Science</option>';
+                    echo '<option value="Software Engineering">Software Engineering</option>';
+                } else {
+                    // If staff is a Lecturer, restrict them to their own module
+                    echo '<option value="' . $_SESSION['staffModule'] . '">' . $_SESSION['staffModule'] . '</option>';
+                }
+                ?>
+            </select>
+
+            <!-- Select Announcement Visibility -->
+            <label for="announcementVisibility">Select Announcement Visbility:</label>
+            <select name="announcementVisibility" id="announcementVisibility">
+                <option value="">Unspecified</option>
+                <?php
+                // Allow announcement visibility selection based on staff role
+                if ($_SESSION['staffRole'] === 'Module Leader') {
+                    echo '<option value="Guests">Guests Only</option>';
+                    echo '<option value="Lecturers">Lecturers Only</option>';
+                    echo '<option value="Module Leaders">Module Leaders Only</option>';
+                    echo '<option value="All">All</option>';
+                } else {
+                    // If staff is a Lecturer, restrict them to their own role and below
+                    echo '<option value="Guests">Guests Only</option>';
+                    echo '<option value="Lecturers">Lecturers Only</option>';
+                }
+                ?>
+            </select>
+
+            <!-- Enter Announcement Content -->
+            <label for="announcementText">Enter Announcement Content:</label>
+            <textarea name="announcementContent" id="announcement-info" cols="40" rows="10" placeholder="Enter announcement:"></textarea>
+
+            <button type="submit" name="addAnnouncement">Add Announcement</button>
+        </form>
+
+        <!-- Display success/error messages -->
+        <?php
+            if (isset($_GET['status']) && $_GET['status'] == 'announcementAdded') {
+                echo "<p style='color: green;'>Announcement successfully added!</p>";
+            } elseif (isset($_GET['error']) && $_GET['error'] == 'stmtError') {
+                echo "<p style='color: red;'>Error creating announcement. Try again.</p>";
+            } elseif (isset($_GET['error']) && $_GET['error'] == 'invalidModule') {
+                echo "<p style='color: red;'>You can only post announcements for your own module!</p>";
+            }
+        ?>
+
+
+        <!-- EVENT CREATION -->
         <h3>Add New Event</h3>
         <p>You can add events below.</p>
         <form action="../includes/add_event.inc.php" method="POST">
-
         <label>Enter Information:</label>
 
             <!-- Select Event Module -->
