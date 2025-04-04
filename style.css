@@ -370,3 +370,11 @@ img {
     cursor: pointer;
     color: #AF69EE;
 }
+
+.announcement-box {
+    border: 1px solid #000000;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #c0c0c0;
+    border-radius: 5px;
+}

@@ -38,7 +38,12 @@ $fullname = isset($_SESSION['fullName']) ? htmlspecialchars($_SESSION['fullName'
         </nav>
 
         <h2>Welcome to your Dashboard, <?php echo $fullname; ?> </h2>
-        <a class="login-hyperlink" href="../includes/logout.inc.php">Logout</a>
+        
+        <!-- Logout button -->
+        <form action="../includes/logout.inc.php" method="POST">
+        <label>Click the button below to logout:</label>
+            <button type="submit" name="logout">Logout</button>
+        </form>
         
         <footer>
             <h3>University of Wolverhampton</h3>

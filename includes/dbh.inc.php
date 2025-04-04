@@ -1,9 +1,9 @@
 <?php
 // To connect to database please refer to 'filezilla_connection.txt' on Basecamp
 $servername = "localhost"; // KEEP "localhost"
-$username = "";  // YOUR_STUDENT_NUMBER
+$username = "root";  // YOUR_STUDENT_NUMBER
 $password = "";      // YOUR_MYSQL_PASSWORD
-$dbname = "";  // db[YOUR_STUDENT_ID]
+$dbname = "db2350327";  // db[YOUR_STUDENT_ID]
 
 // Create connection to the database
 $dbconnection = new mysqli($servername, $username, $password, $dbname);
@@ -63,8 +63,6 @@ if ($result->num_rows == 0) {
     } else {
         die("Error inserting admin account: " . $stmt->error);
     }
-} else {
-    echo "Admin account already exists.<br>";
 }
 
 // Create Events Table (if not exists)
@@ -108,8 +106,46 @@ if ($result->num_rows == 0) {
     } else {
         die("Error inserting event: " . $stmt->error);
     }
-} else {
-    echo "Event already exists.<br>";
+}
+
+
+// Create Announcements Table (if not exists)
+$announcements_table_sql = "CREATE TABLE IF NOT EXISTS openday_announcements (
+    announcementID INT AUTO_INCREMENT PRIMARY KEY,
+    announcementModule VARCHAR(255) NOT NULL,
+    announcementVisibility VARCHAR(255) NOT NULL,
+    announcementContent VARCHAR(255) NOT NULL,
+    staffID INT NOT NULL,
+    FOREIGN KEY (staffID) REFERENCES openday_staff_info(SID)
+)";
+
+if ($dbconnection->query($announcements_table_sql) !== TRUE) {
+    die("Error creating announcement table: " . $dbconnection->error);
+}
+
+// Insert default Announcement
+$announcementModule = "Computer Science";
+$check_announcement_sql = "SELECT 1 FROM openday_announcements WHERE announcementModule = ?";
+$stmt = $dbconnection->prepare($check_announcement_sql);
+$stmt->bind_param("s", $announcementModule);
+$stmt->execute();
+$result = $stmt->get_result();
+
+// Dummy test data
+if ($result->num_rows == 0) {
+    $announcementVisibility = "All";
+    $announcementContent = "Test Announcement #1";
+    $announcementStaffID = "1";
+
+    $insert_announcement_sql = "INSERT INTO openday_announcements (announcementModule, announcementVisibility, announcementContent, staffID) VALUES (?, ?, ?, ?)";
+    $stmt = $dbconnection->prepare($insert_announcement_sql);
+    $stmt->bind_param("ssss", $announcementModule, $announcementVisibility, $announcementContent, $announcementStaffID);
+
+    if ($stmt->execute()) {
+        echo "Announcement created successfully.<br>";
+    } else {
+        die("Error inserting Announcement: " . $stmt->error);
+    }
 }
 
 ?>

@@ -39,7 +39,12 @@ $adminName = htmlspecialchars($_SESSION['staffName'], ENT_QUOTES, 'UTF-8');
 
         <h2>Welcome, <?php echo $adminName; ?></h2>
         <p>This is the Administrator Dashboard.</p>
-        <a class="login-hyperlink" href="../includes/logout.inc.php">Logout</a>
+        
+        <!-- Logout button -->
+        <form action="../includes/logout.inc.php" method="POST">
+        <label>Click the button below to logout:</label>
+            <button type="submit" name="logout">Logout</button>
+        </form>
 
         <!-- Form to add new staff -->
         <h3>Add New Staff Member</h3>
