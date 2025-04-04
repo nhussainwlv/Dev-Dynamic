@@ -111,6 +111,7 @@ $staffRole = htmlspecialchars($_SESSION['staffRole'], ENT_QUOTES, 'UTF-8');
                 echo "<h3>Announcements</h3>";
                 while ($row = $result->fetch_assoc()) {
                     echo "<div class='announcement-box'>";
+                    echo "<h2><strong>Announcement:</strong></h2>";
                     echo "<p><strong>Module:</strong> " . htmlspecialchars($row["announcementModule"]) . "</p>";
                     echo "<p><strong>By:</strong> " . htmlspecialchars($row["staffName"]) . "</p>";
                     echo "<p><strong>Visibility:</strong> " . htmlspecialchars($row["announcementVisibility"]) . "</p>";
@@ -182,9 +183,45 @@ $staffRole = htmlspecialchars($_SESSION['staffRole'], ENT_QUOTES, 'UTF-8');
             }
         ?>
 
+        
+        <h3>Event Timetable</h3>
+
+        <!-- VIEW EVENTS -->
+        <?php
+            // Fetch events with the author's name
+            $sql = "SELECT openday_events.eventModule, 
+                        openday_events.eventType, 
+                        openday_events.eventLocation, 
+                        openday_events.eventRoom, 
+                        openday_events.eventDateTime, 
+                        openday_staff_info.staffName 
+                    FROM openday_events
+                    JOIN openday_staff_info 
+                        ON openday_events.staffID = openday_staff_info.SID
+                    ORDER BY openday_events.eventID DESC"; // Show newest first
+
+            $result = $dbconnection->query($sql);
+
+            // Display the events
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<div class='announcement-box'>";
+                    echo "<h3>Upcoming Event:</h3>";
+                    echo "<p><strong>Module:</strong> " . htmlspecialchars($row["eventModule"]) . "</p>";
+                    echo "<p><strong>Type:</strong> " . htmlspecialchars($row["eventType"]) . "</p>";
+                    echo "<p><strong>By:</strong> " . htmlspecialchars($row["staffName"]) . "</p>";
+                    echo "<p><strong>Location:</strong> " . htmlspecialchars($row["eventLocation"]) . "</p>";
+                    echo "<p><strong>Room:</strong> " . htmlspecialchars($row["eventRoom"]) . "</p>";
+                    echo "<p><strong>Date and Time:</strong> " . htmlspecialchars($row["eventDateTime"]) . "</p>";
+                    echo "</div><hr>";
+                }
+            } else {
+                echo "<p>No events available.</p>";
+            }
+        ?>
+
 
         <!-- EVENT CREATION -->
-        <h3>Add New Event</h3>
         <p>You can add events below.</p>
         <form action="../includes/add_event.inc.php" method="POST">
         <label>Enter Information:</label>
