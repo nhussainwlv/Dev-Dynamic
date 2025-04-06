@@ -148,4 +148,41 @@ if ($result->num_rows == 0) {
     }
 }
 
+
+// Create Help and Feedback Table (if not exists)
+$feedback_table_sql = "CREATE TABLE IF NOT EXISTS openday_feedback (
+    feedbackID INT AUTO_INCREMENT PRIMARY KEY,
+    feedbackName VARCHAR(255) NOT NULL,
+    feedbackEmail VARCHAR(255) NOT NULL UNIQUE,
+    feedbackIssue VARCHAR(255) NOT NULL,
+    feedbackContent TEXT NOT NULL
+)";
+
+if ($dbconnection->query($feedback_table_sql) !== TRUE) {
+    die("Error creating feedback table: " . $dbconnection->error);
+}
+
+// Insert default Feedback issue if not exists
+$feedbackEmail = "feedbackTest@wlv.ac.uk";
+$check_feedback_sql = "SELECT 1 FROM openday_feedback WHERE feedbackEmail = ?";
+$stmt = $dbconnection->prepare($check_feedback_sql);
+$stmt->bind_param("s", $feedbackEmail);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows == 0) {
+    $feedbackName = "FeedbackName 1";
+    $feedbackIssue = "Course Help";
+    $feedbackContent = "test feedback 123"; 
+
+    $insert_feedback_sql = "INSERT INTO openday_feedback (feedbackName, feedbackEmail, feedbackIssue, feedbackContent) VALUES (?, ?, ?, ?)";
+    $stmt = $dbconnection->prepare($insert_feedback_sql);
+    $stmt->bind_param("ssss", $feedbackName, $feedbackEmail, $feedbackIssue, $feedbackContent);
+
+    if ($stmt->execute()) {
+        echo "Feedback issue created successfully.<br>";
+    } else {
+        die("Error inserting Feedback issue: " . $stmt->error);
+    }
+}
 ?>
