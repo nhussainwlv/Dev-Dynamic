@@ -153,7 +153,7 @@ if ($result->num_rows == 0) {
 $feedback_table_sql = "CREATE TABLE IF NOT EXISTS openday_feedback (
     feedbackID INT AUTO_INCREMENT PRIMARY KEY,
     feedbackName VARCHAR(255) NOT NULL,
-    feedbackEmail VARCHAR(255) NOT NULL UNIQUE,
+    feedbackEmail VARCHAR(255) NOT NULL,
     feedbackIssue VARCHAR(255) NOT NULL,
     feedbackContent TEXT NOT NULL
 )";
