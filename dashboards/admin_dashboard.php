@@ -1,20 +1,33 @@
 <?php
-session_start();
-if (!isset($_SESSION['SID']) || $_SESSION["staffRole"] !== "ADMIN") {
-    header("Location: ../staff_login.php");
-    exit;
-}
+    // Start the session to access session variables
+    session_start();
 
-$adminName = htmlspecialchars($_SESSION['staffName'], ENT_QUOTES, 'UTF-8');
+    // Check if SID is set AND if the staff role is set to ADMIN, if not redirects to staff login page
+    if (!isset($_SESSION['SID']) || $_SESSION["staffRole"] !== "ADMIN") {
+        header("Location: ../staff_login.php");
+        exit;
+    }
+
+    // Retrieve and sanitise staff's full name from the session
+    $adminName = htmlspecialchars($_SESSION['staffName'], ENT_QUOTES, 'UTF-8');
 ?>
 
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
     <head>
+        <meta charset="UTF-8"> <!-- Ensures proper character encoding, including emojis -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Makes page mobile responsive -->
+        <meta http-equiv="X-UA-Compatible" content="ie=edge"> <!-- Ensures compatibility with older browsers -->
         <title>WLV Admin Dashboard</title>
-        <link rel="stylesheet" href="../style.css?v=1.1"> <!-- Links to css stylesheet -->
-        <script src="../js/header_sidebar.js?v=1.1"></script> <!-- Links to JS file for header sidebar functions-->
+
+        <link rel="icon" href="https://www.wlv.ac.uk/media/2019-template-assets/favicons/favicon-16x16.png?v=0.0.4" type="image/png">
+        
+        <!-- Links to external CSS stylesheet -->
+        <link rel="stylesheet" href="../style.css"> 
+
+        <!-- Links to JavaScript files -->
+        <script src="../js/header_sidebar.js" defer></script> <!-- JS for header sidebar functions -->
+        <script src="../js/chatbot.js" defer></script> <!-- JS for chatbot functionality -->
     </head>
 
     <body>
@@ -37,24 +50,37 @@ $adminName = htmlspecialchars($_SESSION['staffName'], ENT_QUOTES, 'UTF-8');
             </ul>
         </nav>
 
+        <!-- Welcome message, displaying the logged in admin's Name -->
         <h2>Welcome, <?php echo $adminName; ?></h2>
         <p>This is the Administrator Dashboard.</p>
         
+
         <!-- Logout button -->
         <form action="../includes/logout.inc.php" method="POST">
         <label>Click the button below to logout:</label>
             <button type="submit" name="logout">Logout</button>
         </form>
 
-        <!-- Form to add new staff -->
+        
+        <!-- ADD STAFF MEMBERS -->
         <h3>Add New Staff Member</h3>
         <p>You can add new staff accounts below.</p>
+
+        <!-- Add staff form -->
         <form action="../includes/add_staff.inc.php" method="POST">
+
         <label>Enter Information:</label>
+
+            <!-- Full Name Input -->
             <input type="text" name="staffName" placeholder="Full Name" required>
+
+            <!-- Email Input -->
             <input type="email" name="staffEmail" placeholder="Email" required>
+
+            <!-- Password Input -->
             <input type="password" name="staffPassword" placeholder="Password" required>
 
+            <!-- Select staff's Module from given options -->
             <label for="staffModule">Select Module:</label>
             <select name="staffModule" id="staffModule">
                 <option value="">Unspecified</option>
@@ -64,6 +90,7 @@ $adminName = htmlspecialchars($_SESSION['staffName'], ENT_QUOTES, 'UTF-8');
                 <option value="Software Engineering">Software Engineering</option>
             </select>
 
+            <!-- Select staff's Role from given options -->
             <label for="staffRole">Select Role:</label>
             <select name="staffRole" id="staffRole">
                 <option value="">Unspecified</option>
@@ -71,6 +98,7 @@ $adminName = htmlspecialchars($_SESSION['staffName'], ENT_QUOTES, 'UTF-8');
                 <option value="Module Leader">Module Leader</option>
             </select>
 
+            <!-- Submit Button -->
             <button type="submit" name="addStaff">Add Staff</button>
         </form>
 

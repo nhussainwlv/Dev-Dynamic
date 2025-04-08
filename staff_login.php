@@ -1,9 +1,12 @@
 <?php
-session_start();
-if (isset($_SESSION['SID'])) {
-    header("Location: dashboards/staff_dashboard.php");
-    exit;
-}
+    // Start the session to access session variables
+    session_start();
+
+    // Check if SID is set, if it is, redirects to staff dashboard
+    if (isset($_SESSION['SID'])) {
+        header("Location: dashboards/staff_dashboard.php");
+        exit;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -50,21 +53,27 @@ if (isset($_SESSION['SID'])) {
             </a>
         </nav>
 
+
+        <!-- Error coding displaying error message to user -->
         <?php
+            // Check if there is an "errorcode" parameter in URL
             if (isset($_GET["errorcode"])) {
 
+                // Display error message if email is invalid
                 if($_GET["errorcode"] == "invalidEmail") {
                     echo '<div class="alert alert-danger" role="alert">
                     Email has been entered incorrectly! Please try again.
                     </div>';
                 }
 
+                // Display error message if password is incorrect
                 if($_GET["errorcode"] == "incorrectPassword") {
                     echo '<div class="alert alert-danger" role="alert">
                     Password has been entered incorrectly! Please try again.
                     </div>';
                 }
 
+                // Display success message if login was successful
                 if($_GET["errorcode"] == "LoginSuccessful") {
                     echo '<div class="alert alert-success" role="alert">
                     Account logged in successfully!
@@ -75,24 +84,28 @@ if (isset($_SESSION['SID'])) {
 
         ?>
 
-        <div class="wrapper">
-            <h1>Staff Login</h1>
-            <p><a class="login-hyperlink" href="login.php">Login as Guest/Student</a></p>
+        <!-- LOGIN -->
+        <h1>Staff Login</h1>
 
-            <p id="error-message" class="hidden"></p>
+        <p><a class="login-hyperlink" href="login.php">Login as Guest/Student</a></p>
+        <p id="error-message" class="hidden"></p>
 
-            <form action="includes/staff_login.inc.php" method="POST">
-                <div>
-                    <input type="email" name="Email" placeholder="Email" required>
-                </div>
-                <div>
-                    <input type="password" name="Password" placeholder="Password" required>
-                </div>
-                <button type="submit" name="Submit">Log In</button>
-            </form>
+        <!-- Login Form -->
+        <form action="includes/staff_login.inc.php" method="POST">
 
-            <p>If you have lost access to your Staff Account, please contact an Administrator, <a class="login-hyperlink" href="Tel:01902 321000">here.</a></p>
-        </div>
+            <!-- Email Input -->
+            <input type="email" name="Email" placeholder="Email" required>
+
+            <!-- Password Input -->
+            <input type="password" name="Password" placeholder="Password" required>
+
+            <!-- Submit Button -->
+            <button type="submit" name="Submit">Log In</button>
+        </form>
+
+        <!-- Link to Admin phone number if they have lost access to their Staff account -->
+        <p>If you have lost access to your Staff Account, please contact an Administrator, <a class="login-hyperlink" href="Tel:01902 321000">here.</a></p>
+
 
         <section id="chatbot">
             <!-- Chatbot Button -->

@@ -1,8 +1,11 @@
 <?php
-session_start(); // Start the session at the very top
-if (!isset($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-}
+    // Start the session to access session variables
+    session_start();
+
+    // Check if CSRF token is set, if not then generate one
+    if (!isset($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
 ?>
 
 <!DOCTYPE html>
@@ -49,82 +52,97 @@ if (!isset($_SESSION['csrf_token'])) {
             </a>
         </nav>
 
+
+        <!-- Error coding displaying error message to user -->
         <?php
-        if (isset($_GET["errorcode"])) {
+            // Check if there is an "errorcode" parameter in URL
+            if (isset($_GET["errorcode"])) {
 
-            if($_GET["errorcode"] == "MissingArgument") {
-                echo '<div class="alert alert-danger" role="alert">
-                You have not entered all boxes! Please try again.
-                </div>';
+                // Display error message if not all arguments are filled
+                if($_GET["errorcode"] == "MissingArgument") {
+                    echo '<div class="alert alert-danger" role="alert">
+                    You have not entered all boxes! Please try again.
+                    </div>';
+                }
+
+                // Display error message if email is invalid
+                if($_GET["errorcode"] == "InvalidEmail") {
+                    echo '<div class="alert alert-danger" role="alert">
+                    Entered E-Mail is invalid! Please try again.
+                    </div>';
+                }
+
+                // Display error message if invalid characters are found
+                if($_GET["errorcode"] == "InvalidCharactersInput") {
+                    echo '<div class="alert alert-danger" role="alert">
+                    You have entered invalid characters! Please try again.
+                    </div>';
+                }
+
+                // Display error message if password doesn't meet length requirements
+                if($_GET["errorcode"] == "InvalidPasswordLength") {
+                    echo '<div class="alert alert-danger" role="alert">
+                    Your password length is invalid! Please try again.
+                    </div>';
+                }
+
+                // Display error message if entered emails do not match
+                if($_GET["errorcode"] == "EmailsDontMatch") {
+                    echo '<div class="alert alert-danger" role="alert">
+                    Entered E-mails do not match! Please try again.
+                    </div>';
+                }
+
+                // Display error message if entered passwords do not match
+                if($_GET["errorcode"] == "PasswordsDontMatch") {
+                    echo '<div class="alert alert-danger" role="alert">
+                    Entered passwords do not match! Please try again.
+                    
+                    </div>';
+                }
+
+                // Display success message if account creation was successful
+                if($_GET["errorcode"] == "none") {
+                    echo '<div class="alert alert-success" role="alert">
+                    Account created successfully!
+                    </div>';
+                }
+
             }
-
-            if($_GET["errorcode"] == "InvalidEmail") {
-                echo '<div class="alert alert-danger" role="alert">
-                Entered E-Mail is invalid! Please try again.
-                </div>';
-            }
-
-            if($_GET["errorcode"] == "InvalidCharactersInput") {
-                echo '<div class="alert alert-danger" role="alert">
-                You have entered invalid characters! Please try again.
-                </div>';
-            }
-
-            if($_GET["errorcode"] == "InvalidPasswordLength") {
-                echo '<div class="alert alert-danger" role="alert">
-                Your password length is invalid! Please try again.
-                </div>';
-            }
-
-            if($_GET["errorcode"] == "EmailsDontMatch") {
-                echo '<div class="alert alert-danger" role="alert">
-                Entered E-mails do not match! Please try again.
-                </div>';
-            }
-
-            if($_GET["errorcode"] == "PasswordsDontMatch") {
-                echo '<div class="alert alert-danger" role="alert">
-                Entered passwords do not match! Please try again.
-                
-                </div>';
-            }
-
-            if($_GET["errorcode"] == "none") {
-                echo '<div class="alert alert-success" role="alert">
-                Account created successfully!
-                </div>';
-            }
-
-        }
 
         ?>
 
-        <div class="wrapper">
-            <h1>Create an Account</h1>
-            <p id="error-message" class="hidden"></p>
+        <!-- ACCOUNT CREATION -->
+        <h1>Create an Account</h1>
+        
+        <p id="error-message" class="hidden"></p>
 
-            <form action="includes/signup.inc.php" id="sign_up_form" method="POST">
-                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-                <div>
-                    <input type="text" name="FullName" placeholder="Full Name" id="fullname-input" required>
-                </div>
-                <div>
-                    <input type="email" name="Email" placeholder="Email" id="email-input" required>
-                </div>
-                <div>
-                    <input type="email" name="ConfirmEmail" placeholder="Confirm Email" id="confirm-email-input" required>
-                </div>
-                <div>
-                    <input type="password" name="Password" id="password-input" placeholder="Password" required>
-                </div>
-                <div>
-                    <input type="password" name="ConfirmPassword" id="confirm-password-input" placeholder="Confirm Password" required>
-                </div>
-                <button type="submit" name="Submit">Sign Up</button>
-            </form>
+        <!-- Signup Form -->
+        <form action="includes/signup.inc.php" id="sign_up_form" method="POST">
 
-            <p>Already have an account? <a class="login-hyperlink" href="login.php">Log In</a></p>
-        </div>
+            <!-- CSRF Token -->
+            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+
+            <!-- Full Name Input -->
+            <input type="text" name="FullName" placeholder="Full Name" required>
+
+            <!-- Email Input -->
+            <input type="email" name="Email" placeholder="Email" required>
+            <!-- Email Confirmation Input -->
+            <input type="email" name="ConfirmEmail" placeholder="Confirm Email" required>
+
+            <!-- Password Input -->
+            <input type="password" name="Password" placeholder="Password" required>
+            <!-- Password Confirmation Input -->
+            <input type="password" name="ConfirmPassword" placeholder="Confirm Password" required>
+
+            <!-- Submit Button -->
+            <button type="submit" name="Submit">Sign Up</button>
+        </form>
+
+        <!-- Redirection to login if they already have an account -->
+        <p>Already have an account? <a class="login-hyperlink" href="login.php">Log In</a></p>
+
 
         <section id="chatbot">
             <!-- Chatbot Button -->
