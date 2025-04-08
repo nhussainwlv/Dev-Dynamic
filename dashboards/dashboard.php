@@ -60,6 +60,31 @@
         <label>Click the button below to logout:</label>
             <button type="submit" name="logout">Logout</button>
         </form>
+
+
+        <!-- SUBMIT REVIEWS -->
+        <h1>Submit a Review!</h1>
+        <h2>Review your experience at our University here:</h2>
+
+        <!-- Review Form -->
+        <form action="../includes/add_review.inc.php" method="POST">
+
+        <label>Enter Information:</label>
+
+            <!-- Select Role from given options -->
+            <label for="reviewRole">Select Role:</label>
+            <select name="reviewRole" required>
+            <option value="Guest">Guest</option>
+            <option value="Student">Student</option>
+            <option value="Parent of Student">Parent of Student</option>
+            </select>
+
+            <!-- Enter Review Content -->
+            <textarea name="reviewContent" cols="40" rows="10" placeholder="Write your review:" required></textarea>
+
+            <!-- Submit Button -->
+            <button type="submit" name="submitReview">Submit Review</button>
+        </form>
         
         <footer>
             <h3>University of Wolverhampton</h3>

@@ -13,6 +13,8 @@ if ($dbconnection->connect_error) {
     die("Connection failed: " . $dbconnection->connect_error);
 }
 
+
+// GUESTS / VISITORS / STUDENTS TABLE
 // Create GUEST table if it doesn't exist already
 $guest_table_sql = "CREATE TABLE IF NOT EXISTS openday_user_info (
     UID INT AUTO_INCREMENT PRIMARY KEY,
@@ -25,6 +27,32 @@ if ($dbconnection->query($guest_table_sql) !== TRUE) {
     die("Error creating guest table: " . $dbconnection->error);
 }
 
+// Insert default user account
+$userEmail = "user@wlv.ac.uk";
+$check_user_sql = "SELECT 1 FROM openday_user_info WHERE userEmail = ?";
+$stmt = $dbconnection->prepare($check_user_sql);
+$stmt->bind_param("s", $userEmail);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows == 0) {
+    $fullName = "User";
+    $userPassword = "user123"; // Default password
+    $hashedPassword = password_hash($userPassword, PASSWORD_DEFAULT); // Hash password
+
+    $insert_user_sql = "INSERT INTO openday_user_info (fullName, userEmail, userPassword) VALUES (?, ?, ?)";
+    $stmt = $dbconnection->prepare($insert_user_sql);
+    $stmt->bind_param("sss", $fullName, $userEmail, $hashedPassword);
+
+    if ($stmt->execute()) {
+        echo "User account created successfully.<br>";
+    } else {
+        die("Error inserting user account: " . $stmt->error);
+    }
+}
+
+
+// STAFF / ADMINS TABLE
 // Create Staff Table (if not exists)
 $staff_table_sql = "CREATE TABLE IF NOT EXISTS openday_staff_info (
     SID INT AUTO_INCREMENT PRIMARY KEY,
@@ -65,6 +93,8 @@ if ($result->num_rows == 0) {
     }
 }
 
+
+// EVENTS TABLE
 // Create Events Table (if not exists)
 $events_table_sql = "CREATE TABLE IF NOT EXISTS openday_events (
     eventID INT AUTO_INCREMENT PRIMARY KEY,
@@ -109,6 +139,7 @@ if ($result->num_rows == 0) {
 }
 
 
+// ANNOUNCEMENTS TABLE
 // Create Announcements Table (if not exists)
 $announcements_table_sql = "CREATE TABLE IF NOT EXISTS openday_announcements (
     announcementID INT AUTO_INCREMENT PRIMARY KEY,
@@ -149,6 +180,7 @@ if ($result->num_rows == 0) {
 }
 
 
+// HELP / FEEDBACK TABLE
 // Create Help and Feedback Table (if not exists)
 $feedback_table_sql = "CREATE TABLE IF NOT EXISTS openday_feedback (
     feedbackID INT AUTO_INCREMENT PRIMARY KEY,
@@ -185,4 +217,43 @@ if ($result->num_rows == 0) {
         die("Error inserting Feedback issue: " . $stmt->error);
     }
 }
+
+
+// REVIEWS TABLE
+// Create Reviews Table (if not exists)
+$review_table_sql = "CREATE TABLE IF NOT EXISTS openday_reviews (
+    reviewID INT AUTO_INCREMENT PRIMARY KEY,
+    userID INT NOT NULL,
+    FOREIGN KEY (userID) REFERENCES openday_user_info(UID),
+    reviewRole VARCHAR(255) NOT NULL,
+    reviewContent TEXT NOT NULL
+)";
+
+if ($dbconnection->query($review_table_sql) !== TRUE) {
+    die("Error creating reviews table: " . $dbconnection->error);
+}
+
+// Insert default Reviews if not exists
+$reviewRole = "Student";
+$check_review_sql = "SELECT 1 FROM openday_reviews WHERE reviewRole = ?";
+$stmt = $dbconnection->prepare($check_review_sql);
+$stmt->bind_param("s", $reviewRole);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows == 0) {
+    $userID = "1";
+    $reviewContent = "test review 123"; 
+
+    $insert_review_sql = "INSERT INTO openday_reviews (userID, reviewRole, reviewContent) VALUES (?, ?, ?)";
+    $stmt = $dbconnection->prepare($insert_review_sql);
+    $stmt->bind_param("sss", $userID, $reviewRole, $reviewContent);
+
+    if ($stmt->execute()) {
+        echo "Review issue created successfully.<br>";
+    } else {
+        die("Error inserting Review: " . $stmt->error);
+    }
+}
+
 ?>

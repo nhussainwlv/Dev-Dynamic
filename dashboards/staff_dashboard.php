@@ -113,6 +113,39 @@
         ?>
 
 
+        <h3>Guests and Student Reviews</h3>
+
+        <!-- VIEW REVIEWS -->
+        <?php
+            // Fetch review with the author's name and email
+            $sql = "SELECT openday_reviews.reviewRole, 
+                        openday_reviews.reviewContent, 
+                        openday_user_info.fullName,
+                        openday_user_info.userEmail
+                    FROM openday_reviews
+                    JOIN openday_user_info 
+                        ON openday_reviews.userID = openday_user_info.UID
+                    ORDER BY openday_reviews.reviewID DESC"; // Show newest first
+
+            $result = $dbconnection->query($sql);
+
+            // Display the Review
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<div class='announcement-box'>";
+                    echo "<h2><strong>Review:</strong></h2>";
+                    echo "<p><strong>Role:</strong> " . htmlspecialchars($row["reviewRole"]) . "</p>";
+                    echo "<p><strong>By:</strong> " . htmlspecialchars($row["fullName"]) . "</p>";
+                    echo "<p><strong>Email:</strong> " . htmlspecialchars($row["userEmail"]) . "</p>";
+                    echo "<p><strong>Review:</strong> " . nl2br(htmlspecialchars($row["reviewContent"])) . "</p>";
+                    echo "</div><hr>";
+                }
+            } else {
+                echo "<p>No reviews available.</p>";
+            }
+        ?>
+
+
         <h3>Staff Announcements</h3>
 
         <!-- VIEW ANNOUNCEMENTS -->
@@ -141,7 +174,6 @@
 
             // Display the announcements
             if ($result->num_rows > 0) {
-                echo "<h3>Announcements</h3>";
                 while ($row = $result->fetch_assoc()) {
                     echo "<div class='announcement-box'>";
                     echo "<h2><strong>Announcement:</strong></h2>";
