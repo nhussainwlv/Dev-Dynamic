@@ -41,45 +41,27 @@ h3 {
     font-weight: 600;
 }
 
-/* Main Content */
-main {
-    background-color: #f9fbfd;
-    padding: 40px;
-    border-radius: 8px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
 /* Navigation Bar */
 nav {
     background-color: #00467f;
-    height: 70px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     padding: 15px;
 }
 
 nav ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+    list-style: none;
     display: flex;
-    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
 }
 
 nav ul li {
-    display: inline-block;
     margin: 0 20px;
-    line-height: 70px;
 }
 
 nav ul li a {
-    font-size: 20px;
-    color: white;
     text-decoration: none;
+    color: #ffffff;
     font-weight: 600;
     transition: color 0.3s;
 }
@@ -88,24 +70,30 @@ nav ul li a:hover {
     color: #ffd700;
 }
 
-/* Sidebar Navigation (For Mobile) */
+/* Responsive Menu Icon and Sidebar */
+.menu-icon {
+    display: none;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 1.8rem;
+}
+
 .sidebar {
     position: fixed;
     top: 0;
     right: 0;
+    width: 100%;
+    max-width: 300px;
     height: 100vh;
-    width: 250px;
     background-color: #00467f;
     display: none;
     flex-direction: column;
     align-items: center;
     padding-top: 60px;
-    z-index: 999;
+    z-index: 1000;
 }
 
 .sidebar li {
-    width: 100%;
-    text-align: center;
     margin: 15px 0;
 }
 
@@ -114,11 +102,14 @@ nav ul li a:hover {
     font-size: 1.2rem;
 }
 
-.menu-icon {
-    display: none;
-    cursor: pointer;
-    color: #ffffff;
-    font-size: 1.8rem;
+/* Main Content Styling */
+main {
+    background-color: #f9fbfd;
+    padding: 40px;
+    border-radius: 8px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 /* Buttons */
@@ -137,44 +128,18 @@ button:hover, .btn:hover {
     background-color: #00325a;
 }
 
-/* Responsive Design */
-@media (max-width: 800px) {
-    .responsiveHeader {
-        display: none;
-    }
-
-    .container, main {
-        padding: 15px;
-    }
-
-    .menu-icon {
-        display: block;
-    }
-
-    .sidebar {
-        width: 100%;
-    }
-
-    form div {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    form label {
-        text-align: left;
-        padding-right: 0;
-    }
-
-    form button {
-        width: 100%;
-    }
-}
-
 /* Links */
 a {
     color: #00467f;
     text-decoration: none;
     transition: color 0.3s;
+}
+
+/* Images */
+img {
+    align-self: center;
+    max-width: 100%;
+    height: auto;
 }
 
 a:hover {
@@ -219,20 +184,6 @@ form input {
 form button {
     align-self: center;
     width: 50%;
-}
-
-form button:hover {
-    background-color: darkblue;
-}
-
-/* Login Hyperlink */
-.login-hyperlink {
-    color: rgb(0, 4, 255);
-}
-
-/* Hidden Elements */
-.hidden {
-    display: none;
 }
 
 #confirmation-box {
@@ -289,9 +240,43 @@ footer a:hover svg {
 
 /* Images */
 img {
-    align-self: center;
     max-width: 100%;
     height: auto;
+    border-radius: 8px;
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+/* Responsive Design */
+@media (max-width: 800px) {
+    nav ul {
+        display: none;
+    }
+
+    .menu-icon {
+        display: block;
+    }
+
+    .container, main {
+        padding: 15px;
+    }
+
+    form div {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    form label {
+        text-align: left;
+        padding-right: 0;
+    }
+
+    form button {
+        width: 100%;
+    }
 }
 
 /* Chatbot Button */
@@ -302,7 +287,7 @@ img {
     background-color: #AF69EE;
     color: white;
     padding: 10px 15px;
-    border-radius: 10px;
+    border-radius: 50%;
     cursor: pointer;
     font-size: 20px;
 }
@@ -320,9 +305,9 @@ img {
     overflow: hidden;
 }
 
-/* Utility Classes */
+/* Hide initially */
 .hidden {
-    display: none !important;
+    display: none;
 }
 
 /* Chatbot Header */
@@ -377,4 +362,67 @@ img {
     margin-bottom: 10px;
     background-color: #c0c0c0;
     border-radius: 5px;
+}
+
+ /* Styles for courses page */
+ .courses-container {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-radius: 10px;
+}
+
+.course {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+.course:last-child {
+    border-bottom: none;
+}
+
+.course img {
+    width: 300px;
+    height: auto;
+    border-radius: 8px;
+}
+
+.course-details {
+    flex: 1;
+    min-width: 250px;
+}
+
+.course-details h2 {
+    color: #2b3e51;
+    margin-bottom: 10px;
+}
+
+.course-details p {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #333;
+}
+
+.course-leader {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #555;
+}
+
+@media (max-width: 800px) {
+    .course {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .course img {
+        width: 100%;
+    }
 }
