@@ -1,25 +1,47 @@
 <?php
-session_start();
-if (!isset($_SESSION['SID']) || $_SESSION["staffRole"] === "ADMIN") {
-    header("Location: admin_dashboard.php");
-    exit;
-}
+    // Start the session to access session variables
+    session_start();
 
-require_once '../includes/dbh.inc.php';
+    // Check if SID is set, if not redirects to staff login page
+    if (!isset($_SESSION['SID'])) {
+        header("Location: ../staff_login.php");
+        exit;
+    }
 
-$staffName = htmlspecialchars($_SESSION['staffName'], ENT_QUOTES, 'UTF-8');
-$staffModule = htmlspecialchars($_SESSION['staffModule'], ENT_QUOTES, 'UTF-8');
-$staffRole = htmlspecialchars($_SESSION['staffRole'], ENT_QUOTES, 'UTF-8');
+    // Check if staff role is set to ADMIN, if set, redirects to the admin dashboard
+    if ($_SESSION["staffRole"] === "ADMIN") {
+        header("Location: admin_dashboard.php");
+        exit;
+    }
+
+    // Include and run the database connection file
+    require_once '../includes/dbh.inc.php';
+
+    // Retrieve and sanitise staff's full name from the session
+    $staffName = htmlspecialchars($_SESSION['staffName'], ENT_QUOTES, 'UTF-8');
+    // Retrieve and sanitise staff's set module from the session
+    $staffModule = htmlspecialchars($_SESSION['staffModule'], ENT_QUOTES, 'UTF-8');
+    // Retrieve and sanitise staff's set role from the session
+    $staffRole = htmlspecialchars($_SESSION['staffRole'], ENT_QUOTES, 'UTF-8');
 ?>
 
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
     <head>
+        <meta charset="UTF-8"> <!-- Ensures proper character encoding, including emojis -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Makes page mobile responsive -->
+        <meta http-equiv="X-UA-Compatible" content="ie=edge"> <!-- Ensures compatibility with older browsers -->
         <title>WLV Staff Dashboard</title>
-        <link rel="stylesheet" href="../style.css"> <!-- Links to css stylesheet -->
-        <script src="../js/header_sidebar.js"></script> <!-- Links to JS file for header sidebar functions-->
-        <script src="../js/event_form_validation.js"></script> <!-- Links to JS file for eventRoom functions-->
+
+        <link rel="icon" href="https://www.wlv.ac.uk/media/2019-template-assets/favicons/favicon-16x16.png?v=0.0.4" type="image/png">
+        
+        <!-- Links to external CSS stylesheet -->
+        <link rel="stylesheet" href="../style.css"> 
+
+        <!-- Links to JavaScript files -->
+        <script src="../js/header_sidebar.js" defer></script> <!-- JS for header sidebar functions -->
+        <script src="../js/chatbot.js" defer></script> <!-- JS for chatbot functionality -->
+        <script src="../js/event_form_validation.js"></script> <!-- JS for eventRoom functions-->
     </head>
 
     <body>
@@ -47,20 +69,31 @@ $staffRole = htmlspecialchars($_SESSION['staffRole'], ENT_QUOTES, 'UTF-8');
         <h2>Welcome, <?php echo $staffName; ?>!</h2>
         <p>This is the Staff Dashboard, you are logged in as a <?php echo $staffModule . ' ' . $staffRole; ?>!</p>
 
+
         <!-- Logout button -->
         <form action="../includes/logout.inc.php" method="POST">
         <label>Click the button below to logout:</label>
             <button type="submit" name="logout">Logout</button>
         </form>
 
+
+        <!-- CHANGE PASSWORD -->
         <h3>Change Password</h3>
         
+        <!-- Change password form -->
         <form action="../includes/change_password.inc.php" method="POST">
+
         <label>Enter Information:</label>
 
+            <!-- OLD Password Input -->
             <input type="password" name="currentPassword" placeholder="Current Password" required>
+
+            <!-- NEW Password Input -->
             <input type="password" name="newPassword" placeholder="New Password" required>
+            <!-- NEW Password Confirmation Input -->
             <input type="password" name="confirmNewPassword" placeholder="Confirm New Password" required>
+            
+            <!-- Submit Button -->
             <button type="submit" name="changePassword">Change Password</button>
         </form>
 
@@ -169,6 +202,7 @@ $staffRole = htmlspecialchars($_SESSION['staffRole'], ENT_QUOTES, 'UTF-8');
             <label for="announcementText">Enter Announcement Content:</label>
             <textarea name="announcementContent" id="announcement-info" cols="40" rows="10" placeholder="Enter announcement:"></textarea>
 
+            <!-- Submit Button -->
             <button type="submit" name="addAnnouncement">Add Announcement</button>
         </form>
 
@@ -271,6 +305,7 @@ $staffRole = htmlspecialchars($_SESSION['staffRole'], ENT_QUOTES, 'UTF-8');
             <label for="eventDateTime">Select Event Date & Time:</label>
             <input type="datetime-local" name="eventDateTime" id="eventDateTime" required>
 
+            <!-- Submit Button -->
             <button type="submit" name="addEvent">Add Event</button>
         </form>
         

@@ -42,21 +42,27 @@
             </a>
         </nav>
 
+
+        <!-- Error coding displaying error message to user -->
         <?php
+            // Check if there is an "errorcode" parameter in URL
             if (isset($_GET["errorcode"])) {
 
+                // Display error message if email is invalid
                 if($_GET["errorcode"] == "invalidEmail") {
                     echo '<div class="alert alert-danger" role="alert">
                     Email has been entered incorrectly! Please try again.
                     </div>';
                 }
 
+                // Display error message if password is incorrect
                 if($_GET["errorcode"] == "incorrectPassword") {
                     echo '<div class="alert alert-danger" role="alert">
                     Password has been entered incorrectly! Please try again.
                     </div>';
                 }
 
+                // Display success message if login was successful
                 if($_GET["errorcode"] == "LoginSuccessful") {
                     echo '<div class="alert alert-success" role="alert">
                     Account logged in successfully!
@@ -67,25 +73,28 @@
 
         ?>
 
-        <div class="wrapper">
-            <h1>Login to Your Account</h1>
+        <!-- LOGIN -->
+        <h1>Login to Your Account</h1>
 
-            <p><a class="login-hyperlink" href="staff_login.php">Login as Staff</a></p>
+        <p><a class="login-hyperlink" href="staff_login.php">Login as Staff</a></p>
+        <p id="error-message" class="hidden"></p>
 
-            <p id="error-message" class="hidden"></p>
+        <!-- Login Form -->
+        <form action="includes/login.inc.php" method="POST">
 
-            <form action="includes/login.inc.php" method="POST">
-                <div>
-                    <input type="email" name="Email" placeholder="Email" required>
-                </div>
-                <div>
-                    <input type="password" name="Password" placeholder="Password" required>
-                </div>
-                <button type="submit" name="Submit">Log In</button>
-            </form>
+            <!-- Email Input -->
+            <input type="email" name="Email" placeholder="Email" required>
 
-            <p>Don't have an account? <a class="login-hyperlink" href="signup.php">Sign Up</a></p>
-        </div>
+            <!-- Password Input -->
+            <input type="password" name="Password" placeholder="Password" required>
+
+            <!-- Submit Button -->
+            <button type="submit" name="Submit">Log In</button>
+        </form>
+
+        <!-- Redirection to signup if they do not have an account -->
+        <p>Don't have an account? <a class="login-hyperlink" href="signup.php">Sign Up</a></p>
+
 
         <section id="chatbot">
             <!-- Chatbot Button -->
