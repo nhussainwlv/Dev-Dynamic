@@ -113,6 +113,59 @@
         ?>
 
 
+        <h3>Guests and Student Reviews</h3>
+
+        <!-- APPROVE / DELETE REVIEWS -->
+        
+
+
+        <!-- VIEW REVIEWS -->
+        <?php
+            // Fetch review with the author's name and email
+            $sql = "SELECT openday_reviews.reviewID,
+                        openday_reviews.reviewRole, 
+                        openday_reviews.reviewContent, 
+                        openday_reviews.reviewStatus,
+                        openday_user_info.fullName,
+                        openday_user_info.userEmail
+                    FROM openday_reviews
+                    JOIN openday_user_info 
+                        ON openday_reviews.userID = openday_user_info.UID
+                    ORDER BY openday_reviews.reviewID DESC"; // Show newest first
+
+            $result = $dbconnection->query($sql);
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    
+                    $statusClass = 'review-pending';
+                    if ($row["reviewStatus"] === 'approved') $statusClass = 'review-approved';
+                    elseif ($row["reviewStatus"] === 'denied') $statusClass = 'review-denied';
+            
+                    echo "<div class='review-box {$statusClass}'>";
+                    echo "<p><strong>Role:</strong> " . htmlspecialchars($row["reviewRole"]) . "</p>";
+                    echo "<p><strong>By:</strong> " . htmlspecialchars($row["fullName"]) . "</p>";
+                    echo "<p><strong>Email:</strong> " . htmlspecialchars($row["userEmail"]) . "</p>";
+                    echo "<p><strong>Review:</strong><br>" . nl2br(htmlspecialchars($row["reviewContent"])) . "</p>";
+                    echo "<p><strong>Status:</strong> " . ucfirst($row["reviewStatus"]) . "</p>";
+            
+                    echo "<h2>Manage Reviews</h2>";
+                    echo "<form action='../includes/review_actions.inc.php' method='POST' style='margin-top:10px;'>";
+                    echo "<input type='hidden' name='reviewID' value='" . $row["reviewID"] . "'>";
+                    echo "<button type='submit' name='action' value='approve'>Approve</button> ";
+                    echo "<button type='submit' name='action' value='deny'>Deny</button> ";
+                    echo "<button type='submit' name='action' value='delete' onclick='return confirm(\"Are you sure?\")'>Delete</button>";
+                    echo "</form>";
+            
+                    echo "</div>";
+                }
+
+            } else {
+                echo "<p>No reviews available.</p>";
+            }
+        ?>
+
+
         <h3>Staff Announcements</h3>
 
         <!-- VIEW ANNOUNCEMENTS -->
@@ -141,7 +194,6 @@
 
             // Display the announcements
             if ($result->num_rows > 0) {
-                echo "<h3>Announcements</h3>";
                 while ($row = $result->fetch_assoc()) {
                     echo "<div class='announcement-box'>";
                     echo "<h2><strong>Announcement:</strong></h2>";

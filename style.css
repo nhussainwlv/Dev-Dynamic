@@ -364,6 +364,26 @@ img {
     border-radius: 5px;
 }
 
+.review-box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.review-approved {
+    background-color: #d4edda;
+    border-color: #28a745;
+}
+
+.review-denied {
+    background-color: #f8d7da;
+    border-color: #dc3545;
+}
+
+.review-pending {
+    background-color: #ffffff;
+
  /* Styles for courses page */
  .courses-container {
     max-width: 1100px;
