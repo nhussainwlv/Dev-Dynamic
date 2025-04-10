@@ -226,7 +226,8 @@ $review_table_sql = "CREATE TABLE IF NOT EXISTS openday_reviews (
     userID INT NOT NULL,
     FOREIGN KEY (userID) REFERENCES openday_user_info(UID),
     reviewRole VARCHAR(255) NOT NULL,
-    reviewContent TEXT NOT NULL
+    reviewContent TEXT NOT NULL,
+    reviewStatus ENUM('pending', 'approved', 'denied') DEFAULT 'pending'
 )";
 
 if ($dbconnection->query($review_table_sql) !== TRUE) {
@@ -244,10 +245,11 @@ $result = $stmt->get_result();
 if ($result->num_rows == 0) {
     $userID = "1";
     $reviewContent = "test review 123"; 
+    $reviewStatus = "pending";
 
-    $insert_review_sql = "INSERT INTO openday_reviews (userID, reviewRole, reviewContent) VALUES (?, ?, ?)";
+    $insert_review_sql = "INSERT INTO openday_reviews (userID, reviewRole, reviewContent, reviewStatus) VALUES (?, ?, ?, ?)";
     $stmt = $dbconnection->prepare($insert_review_sql);
-    $stmt->bind_param("sss", $userID, $reviewRole, $reviewContent);
+    $stmt->bind_param("ssss", $userID, $reviewRole, $reviewContent, $reviewStatus);
 
     if ($stmt->execute()) {
         echo "Review issue created successfully.<br>";

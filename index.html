@@ -20,7 +20,7 @@
         <nav style="position: relative; overflow: hidden; width: 100%; box-sizing: border-box; padding-right: 20px;">
             <ul class="sidebar">
                 <li onclick=hideSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></a></li>
-                <li><a href="index.html" style="color: red;">Home</a></li>
+                <li><a href="index.php" style="color: red;">Home</a></li>
                 <li><a href="map.html">Map</a></li>
                 <li><a href="signup.php">Sign Up</a></li>
                 <li><a href="login.php">Log In</a></li>
@@ -28,7 +28,7 @@
                 <li><a href="help.html">Help</a></li>
             </ul>
             <ul>
-                <li class="responsiveHeader"><a href="index.html" style="color: red;">Home</a></li>
+                <li class="responsiveHeader"><a href="index.php" style="color: red;">Home</a></li>
                 <li class="responsiveHeader"><a href="map.html">Map</a></li>
                 <li class="responsiveHeader"><a href="signup.php">Sign Up</a></li>
                 <li class="responsiveHeader"><a href="login.php">Log In</a></li>
@@ -42,8 +42,9 @@
             </a>
         </nav>
 
-        <section class="wrapper">
+        <section>
             <main>
+
             <div>
                 <h1>Open Days at University of Wolverhampton</h1>
                 <p>Applied to University of Wolverhampton, or interested in studying here? 
@@ -52,6 +53,7 @@
                     where you can find out more information about our courses and life at our university.
                 </p>
             </div>
+
             <div>
                 <h2>Learn more about your course!</h2>
                 <p>
@@ -64,6 +66,7 @@
                     to view a full list of the courses we offer!
                 </p>
             </div>
+
             <div>
                 <h2>What to expect from us?</h2>
                 <p>
@@ -77,12 +80,14 @@
                     <a class="login-hyperlink" href="map.html">click here</a>!
                 </p>
             </div>
+
             <div>
                 <h2>Book a reservation today!</h2>
                 <p>Want to take a look around for yourself?
                     Book a reservation to come visit <a class="login-hyperlink" href="book_reservation.html">here</a>!
                 </p>
             </div>
+
             <div>
                 <h2>Require Help?</h2>
                 <p>Don't be afraid to reach out to us for any inquiries, for more information on courses,
@@ -91,6 +96,13 @@
 
                 </p>
             </div>
+
+            <div>
+                <h2>Reviews by Guests and Students</h2>
+                <?php include 'includes/fetch_reviews.inc.php'; ?>
+            </div>
+
+
             </main>
         </section>
 
