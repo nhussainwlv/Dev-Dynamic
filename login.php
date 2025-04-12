@@ -22,7 +22,7 @@
                 <li onclick=hideSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></a></li>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="map.html">Map</a></li>
-                <li><a href="sign_up.html">Sign Up</a></li>
+                <li><a href="signup.php">Sign Up</a></li>
                 <li><a href="log_in.html" style="color: red;">Log In</a></li>
                 <li><a href="book_reservation.html">Book Reservation</a></li>
                 <li><a href="help.html">Help</a></li>
@@ -31,7 +31,7 @@
             <ul>
                 <li class="responsiveHeader"><a href="index.html">Home</a></li>
                 <li class="responsiveHeader"><a href="map.html">Map</a></li>
-                <li class="responsiveHeader"><a href="sign_up.html">Sign Up</a></li>
+                <li class="responsiveHeader"><a href="signup.php">Sign Up</a></li>
                 <li class="responsiveHeader"><a href="log_in.html" style="color: red;">Log In</a></li>
                 <li class="responsiveHeader"><a href="book_reservation.html">Book Reservation</a></li>
                 <li class="responsiveHeader"><a href="help.html">Help</a></li>
@@ -39,8 +39,9 @@
                 <li class="menu-icon" onclick=showSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 -960 960 960" width="50px" fill="#e3e3e3"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg></a></li>
             </ul>
             <a href="https://www.wlv.ac.uk/" target="_blank" style="position: absolute; top: 10px; right: 10px;">
-                <img src="https://www.wlv.ac.uk/media/2019-template-assets/graphics/logo.svg" alt="Wolverhampton University Logo"
-                     style="height: 50px; width: auto; max-width: calc(100% - 20px);">
+                <img src="https://www.wlv.ac.uk/media/2019-template-assets/graphics/logo.svg" 
+                    alt="Wolverhampton University Logo" 
+                    style="height: 50px; width: auto; max-width: calc(100% - 20px); filter: brightness(0);">
             </a>
         </nav>
 
