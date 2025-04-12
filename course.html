@@ -6,6 +6,10 @@
     <title>WLV Courses | University Of Wolverhampton</title>
     <link rel="stylesheet" href="style.css"> <!-- Your existing CSS file -->
     <link rel="icon" href="https://www.wlv.ac.uk/media/2019-template-assets/favicons/favicon-16x16.png?v=0.0.4" type="image/png">
+
+    <!-- Links to JavaScript files -->
+    <script src="js/header_sidebar.js" defer></script> <!-- JS for header sidebar functions -->
+    <script src="js/chatbot.js" defer></script> <!-- JS for chatbot functionality -->
     
 </head>
 <body>
@@ -96,6 +100,27 @@
 
         </section>
     </main>
+
+    <section id="chatbot">
+        <!-- Chatbot Button -->
+        <div id="chatbot-button">💬 Questions?</div>
+
+        <!-- Chatbot Window -->
+        <div id="chatbot-container" class="hidden">
+            <div id="chatbot-header">
+                <span>Hello! You are speaking with our interactive FAQ Chatbot! 🙂 </span>
+                <button id="close-chatbot">✖</button>
+            </div>
+            <div id="chatbot-content">
+                <ul id="faq-categories">
+                    <li data-category="category1">📂 | Category 1</li>
+                    <li data-category="category2">📂 | Category 2</li>
+                    <li data-category="category3">📂 | Category 3</li>
+                </ul>
+                <div id="faq-questions" class="hidden"></div>
+            </div>
+        </div>
+    </section>
 
     <footer>
         <h3>University of Wolverhampton</h3>
