@@ -447,3 +447,51 @@ img {
         width: 100%;
     }
 }
+/* General wrapper for main content area */
+.wrapper {
+    max-width: 1200px;
+    margin: auto;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+/* Styling for content sections on the homepage (intro, courses, campus info, reservation, help) */
+.intro-section, .highlight-section, .campus-info, .reservation-section, .help-section {
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Uniform heading style for main headings (h1, h2) */
+h1, h2 {
+    color: #333;
+}
+
+/* Call-to-action button specifically for course exploration */
+.btn-course {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #0056b3;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 20px;
+}
+
+/* Hover effect for the course button for better interactivity */
+.btn-course:hover {
+    background-color: #003d82;
+}
+
+/* Styling for internal hyperlinks, specifically for login or action-based links */
+.login-hyperlink {
+    color: #0056b3;
+    font-weight: bold;
+}
+
+/* Hover effect to underline links, indicating interactivity */
+.login-hyperlink:hover {
+    text-decoration: underline;
+}
