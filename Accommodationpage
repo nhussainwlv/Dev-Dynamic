@@ -1,0 +1,76 @@
+<html>
+<head>
+    <body>
+        <title>Accomdation page</title>
+
+        <h1>How can you apply?</h1>
+
+        <h2>For new students</h2>
+        <blockquote>You can apply for an Accommodation when you have offically registered for a course on the evision system after that all that is needed is your student number.</blockquote>
+
+        <h2>What is available?</h2>
+        <blockquote> To live in an Accomodation you can choose between ensuite or standard in the different cities Telford, Walsall and Wolverhampton 
+            to ensure that you can get better access and understanding of the offers that we provide: <a href="https://www.wlv.ac.uk/university-life/accommodation/where-can-i-live/">Click here to see more!</a>
+        </blockquote>
+
+        <h2>Accommodation Fully secured!</h2>
+        <blockquote>When you apply for a room in hall within your a accommodation you would need to do advanced payment for it to be secured. To do this you would need to create an
+            account on the website star Rez. 
+        </blockquote>
+
+     
+
+        <h1>Ensuite Accomdation</h1>
+
+        <img src = "https://www.wlv.ac.uk/media/departments/accommodation-services/images/Ensuite-Kitchen-2.jpg" height = "200" width ="200">
+
+        <img src = "https://www.wlv.ac.uk/media/departments/accommodation-services/images/Ensuite-Room-2.jpg" height = "200" width = "200">
+
+        <img src = "https://cdn-wlvacuk.terminalfour.net/media/departments/accommodation-services/images/accomm-pics-(5)-820x459.png" height = "200" width = "200">
+
+        <h1>Standard Accomdation</h1>
+
+        <img src = "https://www.wlv.ac.uk/media/departments/accommodation-services/images/Standard-Room-1-City.jpg" height = "200" width = "200">
+
+        <img src = "https://www.wlv.ac.uk/media/departments/accommodation-services/images/Kitchen-Basin.jpg" height = "200" width ="200">
+
+
+
+        <h2>Prices For Accomdation</h2>
+
+        <table>
+            <tr>
+              <th>Accomdation cities</th>
+              <th>2024/25 Weekly cost</th>
+              <th>42 week licence cost 08/09/24 - 28/06/25</th>
+              <th>52 Week Licence cost 01/06/24 - 31/05/25</th>
+              <th>Semester 1 Price (18 weeks) 08/09/24 - 11/01/2025</th>
+              <th>Semester 2 Price (24 weeks) 11/01/2025 - 28/06/2025</th>
+            </tr>
+            <tr>
+              <td>City standard</td>
+              <td>£96.00</td>
+              <td>£4,032.00</td>
+              <td>£4.992.00</td>
+              <td>£1.728.00</td>
+              <td>£2.304.00</td>
+            </tr>
+            <tr>
+              <td>City Ensuite</td>
+              <td>£114.00</td>
+              <td>£4,788,00</td>
+              <td>£5.928.00</td>
+              <td>£2.052.00</td>
+              <td>£2.736.00</td>
+            </tr>
+            <tr>
+              <td>Walsall Ensuite</td>
+              <td>£114.00</td>
+              <td>£4,788.00</td>
+              <td>£5.928.00</td>
+              <td>£2.052.00</td>
+              <td>£2.736.00</td>
+            </tr>
+          </table>
+</body>
+</html>
