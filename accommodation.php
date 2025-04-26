@@ -1,12 +1,5 @@
 <?php
 session_start();
-
-// Check if user is logged in
-if (!isset($_SESSION["user_id"])) {
-    // User is not logged in
-    header("Location: login.php?errorcode=UnauthorisedAccess");
-    exit();
-}
 ?>
 
 <!DOCTYPE html>
@@ -30,35 +23,7 @@ if (!isset($_SESSION["user_id"])) {
 
 <body>
     <!-- Navigation bar with responsive sidebar and logo -->
-    <nav style="position: relative; overflow: hidden; width: 100%; box-sizing: border-box; padding-right: 20px;">
-        <ul class="sidebar">
-            <li onclick="hideSidebar()"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="..."/></svg></a></li>
-            <li><a href="index.php">Home</a></li>
-            <li><a href="map.html">Map</a></li>
-            <li><a href="signup.php">Sign Up</a></li>
-            <li><a href="login.php">Log In</a></li>
-            <li><a href="book_reservation.html">Book Reservation</a></li>
-            <li><a href="help.html">Help</a></li>
-            <li><a href="course.html">Courses</a></li>
-            <li><a href="accommodation.html" style="color: red;">Accommodation</a></li>
-        </ul>
-        <ul>
-            <li class="responsiveHeader"><a href="index.php">Home</a></li>
-            <li class="responsiveHeader"><a href="map.html">Map</a></li>
-            <li class="responsiveHeader"><a href="signup.php">Sign Up</a></li>
-            <li class="responsiveHeader"><a href="login.php">Log In</a></li>
-            <li class="responsiveHeader"><a href="book_reservation.html">Book Reservation</a></li>
-            <li class="responsiveHeader"><a href="help.html">Help</a></li>
-            <li class="responsiveHeader"><a href="course.html">Courses</a></li>
-            <li class="responsiveHeader"><a href="Accommodation.html" style="color: red;">Accommodation</a></li>
-            <li class="menu-icon" onclick="showSidebar()"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 -960 960 960" width="50px" fill="#e3e3e3"><path d="..."/></svg></a></li>
-        </ul>
-        <a href="https://www.wlv.ac.uk/" target="_blank" style="position: absolute; top: 10px; right: 10px;">
-            <img src="https://www.wlv.ac.uk/media/2019-template-assets/graphics/logo.svg" 
-                 alt="Wolverhampton University Logo" 
-                 style="height: 50px; width: auto; max-width: calc(100% - 20px); filter: brightness(0);">
-        </a>
-    </nav>
+    <?php include_once 'header.php'; ?>
 
     <!-- Main content begins -->
     <main class="container">
