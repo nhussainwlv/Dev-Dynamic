@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+// Check if user is logged in
+if (!isset($_SESSION["user_id"])) {
+    // User is not logged in
+    header("Location: login.php?errorcode=UnauthorisedAccess");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -5,33 +16,34 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Makes page mobile responsive -->
         <meta http-equiv="X-UA-Compatible" content="ie=edge"> <!-- Ensures compatibility with older browsers -->
         <title>WLV Companion</title>
-
-        <link rel="icon" href="https://www.wlv.ac.uk/media/2019-template-assets/favicons/favicon-16x16.png?v=0.0.4" type="image/png">
         
+        <link rel="icon" href="https://www.wlv.ac.uk/media/2019-template-assets/favicons/favicon-16x16.png?v=0.0.4" type="image/png">
+
         <!-- Links to external CSS stylesheet -->
         <link rel="stylesheet" href="style.css"> 
 
         <!-- Links to JavaScript files -->
         <script src="js/header_sidebar.js" defer></script> <!-- JS for header sidebar functions -->
         <script src="js/chatbot.js" defer></script> <!-- JS for chatbot functionality -->
+        <script src="js/text_to_speech.js" defer></script>
     </head>
-
+    
     <body>
         <nav style="position: relative; overflow: hidden; width: 100%; box-sizing: border-box; padding-right: 20px;">
             <ul class="sidebar">
                 <li onclick=hideSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></a></li>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="map.html" style="color: red;">Map</a></li>
+                <li><a href="index.php" style="color: red;">Home</a></li>
+                <li><a href="map.html">Map</a></li>
                 <li><a href="signup.php">Sign Up</a></li>
                 <li><a href="login.php">Log In</a></li>
                 <li><a href="book_reservation.html">Book Reservation</a></li>
                 <li><a href="help.html">Help</a></li>
                 <li><a href="course.html">Courses</a></li>
-                <li><a href="Accommdation.html">Accommodation</a></li>
+                <li><a href="Accommdation.html">Accommdation</a></li>
             </ul>
             <ul>
-                <li class="responsiveHeader"><a href="index.html">Home</a></li>
-                <li class="responsiveHeader"><a href="map.html" style="color: red;">Map</a></li>
+                <li class="responsiveHeader"><a href="index.php" style="color: red;">Home</a></li>
+                <li class="responsiveHeader"><a href="map.html">Map</a></li>
                 <li class="responsiveHeader"><a href="signup.php">Sign Up</a></li>
                 <li class="responsiveHeader"><a href="login.php">Log In</a></li>
                 <li class="responsiveHeader"><a href="book_reservation.html">Book Reservation</a></li>
@@ -47,86 +59,81 @@
             </a>
         </nav>
 
-        <h1>Map</h1>
+        <section class="wrapper">
+            <main>
 
-        <div style="display: flex; align-self: center;">
-            <iframe src="https://www.google.com/maps/d/embed?mid=1X_kWbp70-WKHxhnhysCzf9Brqqrxugc&ehbc=2E312F" width="1000px" height="700px"></iframe>
-        </div>
-
-        <details style="display: block; margin: 0 auto; width: 1000px; margin-top: 20px;">
-            <summary style="cursor: pointer; padding: 10px; background-color: #f0f0f0; border: 1px solid #ccc; text-align: center; font-weight: bold;">
-                Want to find out more? Click here
-            </summary>
-        
-            <div style="padding: 15px; background-color: #ffffff; border: 1px solid #ccc;">
-                <a href="https://www.wlv.ac.uk/media/documents/ER1069---Online-Map-Update---City-Campus-Molineux-(Web).pdf" style="color: black;">
-                    For the summary of the UOW Faculties click here
-                </a>
-        
-                <p>This is the MX Building Housman Building (City Campus)</p>
-                <img src="https://www.dextragroup.co.uk/wp-content/uploads/IMG_9763web.jpg" height="300" width="300">
-                <blockquote>
-                    This is the post Code for the MX building: WV1 1AD Camp Street<br>
-                    If you want to walk to this faculty, it will take you 9 minutes from the main campus
-                </blockquote>
-        
-                <p>Every building down below is in one space and should be within walking distance</p>
-        
-                <p>This is the MA Building Wulfurn Building (City Campus)</p>
-                <img src="https://www.wlv.ac.uk/media/departments/research-hub/images/50583629136_ba3eaa7f98_w.jpg" height="300" width="300">
-                <blockquote>
-                    This is the post Code for MA building: WV1 1LY, Wulfruna Street<br>
-                    There are 2 entry points for this building
-                </blockquote>
-        
-                <p>This is the MC Building Millennium City Building (City Campus)</p>
-                <img src="https://wolverhamptonanimation.wordpress.com/wp-content/uploads/2014/09/l.jpg" height="300" width="300">
-                <blockquote>
-                    This is the post Code for MC building: WV1 1LY, Wulfruna Street
-                </blockquote>
-        
-                <p>This is the MD Building Ambika Paul Building (City Campus)</p>
-                <img src="https://www.wlv.ac.uk/media/departments/digital-content-and-communications/images-18-19/210722-Ambika-Paul-Resized.jpg" height="300" width="300">
-                <blockquote>
-                    This is the post Code for MD building: WV1 1LY, Wulfruna Street
-                </blockquote>
-        
-                <p>This is the MI Building Alan Turing Building (City Campus)</p>
-                <img src="https://cdn-wlvacuk.terminalfour.net/media/departments/digital-content-and-communications/images/Alan-Turing-building-pic-resized-1.jpg" height="300" width="300">
-                <blockquote>
-                    This is the post Code for MI building: WV1 1LY, Wulfruna Street
-                </blockquote>
-        
-                <h1>Car Parking Spots</h1>
-        
-                <p><b>Civic Centre Car park Wolverhampton</b></p>
-                <img src="https://www.wolverhampton.gov.uk/sites/default/files/styles/400xauto/public/2025-03/1CivicCentreCarPark001.jpg?itok=BI9YdLrP" height="300" width="300">
-                <p>PostCode: WV1 1RL North Street</p>
-        
-                <p><b>Fold Street Car Park Wolverhampton</b></p>
-                <img src="https://i2-prod.business-live.co.uk/enterprise/article30313049.ece/ALTERNATES/s1200b/0_School-Street.jpg" height="300" width="300">
-                <p>PostCode: WV1 4LP Fold Street</p>
-        
-                <p>NCP Car Park Wolverhampton</p>
-                <img src="https://assets.centralindex.com/W/48/f61b404bb002d677f855339375992c66.jpg" height="300" width="300">
-                <p>PostCode: WV1 1HT Fryer Street</p>
-        
-                <h1>Buses to Take to Get into Wolverhampton</h1>
-        
-                <p>Bus 79 (West Bromwich)</p>
-                <img src="https://photos.smugmug.com/Buses/N/NatEx/4100/i-WXM5b56/2/M5vw7LhBfFzDXDqzKQ73gqWWL4QxHB2SvM8WH9Lpj/XL/National%20Express%204155%20West%20Bromwich%20180216g-XL.jpg" height="300" width="300">
-        
-                <p>Bus X8 (Birmingham)</p>
-                <img src="https://i.ytimg.com/vi/S71jc1h5m48/hqdefault.jpg" height="300" width="300">
-        
-                <p>Bus 87 (Dudley)</p>
-                <img src="https://www.pmpfilms.com/uploads/4/3/7/8/4378090/img-3892_orig.jpg" height="300" width="300">
+            <div class="intro-section">
+                <h1>Open Days at University of Wolverhampton</h1>
+                <p>Interested in studying at the University of Wolverhampton? 
+                    Join our open day events and explore our campuses, facilities, and vibrant student life!
+                    Attend an open day event at our univeristy and see what we have to offer. 
+                    All prospective students are welcome to our undergraduate and postgraduate open days, 
+                    where you can find out more information about our courses and life at our university.
+                    <span onclick="readText(this.parentElement)" style="cursor: pointer; margin-left: 10px;">
+                        🔊
+                    </span>
+                </p>
             </div>
-        </details>
-        
-        
 
-        <br>
+            <div class="highlight-section">
+                    <h2>Explore Our Exciting Courses</h2>
+                    <p>
+                        Discover courses tailored for your future. Whether your interests lie in Cybersecurity, 
+                        Data Science, Software Engineering, or beyond, we have something just for you. We strive to provide an engaging learning environment while offering the necessary 
+                        support to ensure student success.
+                        <span onclick="readText(this.parentElement)" style="cursor: pointer; margin-left: 10px;">
+                            🔊
+                        </span>
+                        <a href="course.html" class="btn-course">Explore Courses</a>
+                    </p>
+                </div>
+
+            <div class="campus-info">
+                <h2>What to expect?</h2>
+                <p>
+                    The University of Wolverhampton's City Campus is 
+                    in the heart of Wolverhampton city centre. Explore our University campus and enjoy all 
+                    that city life has to offer and start your journey by booking an open day today! 
+                    Visit our Wolverhampton City Campus, Walsall Campus, or Telford Campus to see the state-of-the-art facilities we offer. 
+                    From engineering to health sciences, we support your journey every step of the way. For more information on directions around our campuses
+                    <a class="login-hyperlink" href="map.html">See campus locations →</a>
+                    <span onclick="readText(this.parentElement)" style="cursor: pointer; margin-left: 10px;">
+                        🔊
+                    </span>
+                </p>
+            </div>
+
+            <div class="reservation-section">
+                <h2>Reserve Your Spot Today!</h2>
+                <p>Want to take a look around for yourself?
+                    Ready to see more? Book your place for an open day visit now.
+                    <a class="login-hyperlink" href="book_reservation.html">Reserve now →</a>
+                    <span onclick="readText(this.parentElement)" style="cursor: pointer; margin-left: 10px;">
+                        🔊
+                    </span>
+                </p>
+            </div>
+
+            <div class="help-section">
+                <h2>Require Assistance?</h2>
+                <p>Don't be afraid to reach out to us for any inquiries, for more information on courses,
+                    life at the University of Wolverhampton, or to submit general feedback! We're here to help.
+                    <a class="login-hyperlink" href="help.html">Contact Us →</a>
+                    <span onclick="readText(this.parentElement)" style="cursor: pointer; margin-left: 10px;">
+                        🔊
+                    </span>
+
+                </p>
+            </div>
+
+            <div>
+                <h2>Reviews by Guests and Students</h2>
+                <?php include 'includes/fetch_reviews.inc.php'; ?>
+            </div>
+
+
+            </main>
+        </section>
 
         <section id="chatbot">
             <!-- Chatbot Button -->
@@ -149,7 +156,6 @@
             </div>
         </section>
 
-        
         <footer>
             <h3>University of Wolverhampton</h3>
             <p>Follow us on all Socials!<br>

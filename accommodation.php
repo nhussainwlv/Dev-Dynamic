@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+// Check if user is logged in
+if (!isset($_SESSION["user_id"])) {
+    // User is not logged in
+    header("Location: login.php?errorcode=UnauthorisedAccess");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +40,7 @@
             <li><a href="book_reservation.html">Book Reservation</a></li>
             <li><a href="help.html">Help</a></li>
             <li><a href="course.html">Courses</a></li>
-            <li><a href="Accommodation.html" style="color: red;">Accommodation</a></li>
+            <li><a href="accommodation.html" style="color: red;">Accommodation</a></li>
         </ul>
         <ul>
             <li class="responsiveHeader"><a href="index.php">Home</a></li>
