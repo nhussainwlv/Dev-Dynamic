@@ -19,9 +19,9 @@ if (!$stmt) {
 $stmt->bind_param("ssss", $feedbackName, $feedbackEmail, $feedbackIssue, $feedbackContent);
 
 if ($stmt->execute()) {
-    header("Location: ../help.html?status=feedbackAdded");
+    header("Location: ../help.php?status=feedbackAdded");
 } else {
-    header("Location: ../help.html?error=stmtError");
+    header("Location: ../help.php?error=stmtError");
 }
 
 exit();
