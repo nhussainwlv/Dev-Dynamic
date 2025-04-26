@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+// Check if user is logged in
+if (!isset($_SESSION["user_id"])) {
+    // User is not logged in
+    header("Location: login.php?errorcode=UnauthorisedAccess");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>

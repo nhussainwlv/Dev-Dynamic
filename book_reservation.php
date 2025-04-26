@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+// Check if user is logged in
+if (!isset($_SESSION["user_id"])) {
+    // User is not logged in
+    header("Location: login.php?errorcode=UnauthorisedAccess");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -5,37 +16,37 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Makes page mobile responsive -->
         <meta http-equiv="X-UA-Compatible" content="ie=edge"> <!-- Ensures compatibility with older browsers -->
         <title>WLV Companion</title>
-        
+
         <link rel="icon" href="https://www.wlv.ac.uk/media/2019-template-assets/favicons/favicon-16x16.png?v=0.0.4" type="image/png">
-
+        
         <!-- Links to external CSS stylesheet -->
-        <link rel="stylesheet" href="style.css"> 
-
+        <link rel="stylesheet" href="style.css">
+        
         <!-- Links to JavaScript files -->
-        <script src="js/header_sidebar.js" defer></script> <!-- JS for header sidebar functions -->
+        <script type="text/javascript" src="js/reservation_script.js" defer></script> <!-- JS for reservation functionality -->
+        <script src="js/header_sidebar.js" defer></script> <!-- JS for header sidebar functionality -->
         <script src="js/chatbot.js" defer></script> <!-- JS for chatbot functionality -->
-        <script src="js/text_to_speech.js" defer></script>
     </head>
-    
+
     <body>
         <nav style="position: relative; overflow: hidden; width: 100%; box-sizing: border-box; padding-right: 20px;">
             <ul class="sidebar">
                 <li onclick=hideSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></a></li>
-                <li><a href="index.php" style="color: red;">Home</a></li>
+                <li><a href="index.html">Home</a></li>
                 <li><a href="map.html">Map</a></li>
                 <li><a href="signup.php">Sign Up</a></li>
                 <li><a href="login.php">Log In</a></li>
-                <li><a href="book_reservation.html">Book Reservation</a></li>
+                <li><a href="book_reservation.html" style="color: red;">Book Reservation</a></li>
                 <li><a href="help.html">Help</a></li>
                 <li><a href="course.html">Courses</a></li>
-                <li><a href="Accommdation.html">Accommdation</a></li>
+                <li><a href="Accommodation.html">Accommodation</a></li>
             </ul>
             <ul>
-                <li class="responsiveHeader"><a href="index.php" style="color: red;">Home</a></li>
+                <li class="responsiveHeader"><a href="index.html">Home</a></li>
                 <li class="responsiveHeader"><a href="map.html">Map</a></li>
                 <li class="responsiveHeader"><a href="signup.php">Sign Up</a></li>
                 <li class="responsiveHeader"><a href="login.php">Log In</a></li>
-                <li class="responsiveHeader"><a href="book_reservation.html">Book Reservation</a></li>
+                <li class="responsiveHeader"><a href="book_reservation.html" style="color: red;">Book Reservation</a></li>
                 <li class="responsiveHeader"><a href="help.html">Help</a></li>
                 <li class="responsiveHeader"><a href="course.html">Courses</a></li>
                 <li class="responsiveHeader"><a href="Accommodation.html">Accommodation</a></li>
@@ -48,81 +59,45 @@
             </a>
         </nav>
 
-        <section class="wrapper">
-            <main>
-
-            <div class="intro-section">
-                <h1>Open Days at University of Wolverhampton</h1>
-                <p>Interested in studying at the University of Wolverhampton? 
-                    Join our open day events and explore our campuses, facilities, and vibrant student life!
-                    Attend an open day event at our univeristy and see what we have to offer. 
-                    All prospective students are welcome to our undergraduate and postgraduate open days, 
-                    where you can find out more information about our courses and life at our university.
-                    <span onclick="readText(this.parentElement)" style="cursor: pointer; margin-left: 10px;">
-                        🔊
-                    </span>
-                </p>
+        <div class="wrapper" style="display: flex; justify-content: center; align-items: center; min-height: 80vh;">
+            <div class="reservation-container" style="width: 100%; max-width: 600px; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1); border-radius: 10px; background-color: #fff; min-height: 300px;">
+                <h1 style="text-align: center;">Book a Reservation</h1>
+                <form id="reservation-form" style="display: flex; flex-direction: column; gap: 20px;">
+                    <div style="margin-bottom: 15px; display: flex; flex-direction: column; gap: 10px;">
+                        <label for="event-select">Select Event:</label>
+                        <select id="event-select" required style="width: 100%; padding: 10px; margin-top: 5px;">
+                            <option value="">--Please select an event--</option>
+                            <option value="Cyber Security Open Day - Wolverhampton City Campus: Alan Turing Building MI102c (Saturday 5th July 2025 10am-1pm)">
+                                Cyber Security Open Day - Wolverhampton City Campus: Alan Turing Building MI102c (Saturday 5th July 2025 10am-1pm)
+                            </option>
+                            <option value="Data Science Open Day - Wolverhampton City Campus: Alan Turing Building MI201 (Saturday 12th July 2025 2pm-5pm)">
+                                Data Science Open Day - Wolverhampton City Campus: Alan Turing Building MI201 (Saturday 12th July 2025 2pm-5pm)
+                            </option>
+                            <option value="Software Engineering Open Day - Walsall Campus: Technology Building WS203 (Saturday 19th July 2025 10am-1pm)">
+                                Software Engineering Open Day - Walsall Campus: Technology Building WS203 (Saturday 19th July 2025 10am-1pm)
+                            </option>
+                        </select>
+        
+                        <label for="amount-select" style="margin-top: 10px;">Amount of People Attending:</label>
+                        <select id="amount-select" required style="width: 100%; padding: 10px; margin-top: 5px;">
+                            <option value="">--Please select how many people will be attending--</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4 (Max)</option>
+                        </select>
+                    </div>
+                    <button type="button" id="book-button" style="padding: 10px 20px;">Book Reservation</button>
+                </form>
             </div>
+        </div>
 
-            <div class="highlight-section">
-                    <h2>Explore Our Exciting Courses</h2>
-                    <p>
-                        Discover courses tailored for your future. Whether your interests lie in Cybersecurity, 
-                        Data Science, Software Engineering, or beyond, we have something just for you. We strive to provide an engaging learning environment while offering the necessary 
-                        support to ensure student success.
-                        <span onclick="readText(this.parentElement)" style="cursor: pointer; margin-left: 10px;">
-                            🔊
-                        </span>
-                        <a href="course.html" class="btn-course">Explore Courses</a>
-                    </p>
-                </div>
-
-            <div class="campus-info">
-                <h2>What to expect?</h2>
-                <p>
-                    The University of Wolverhampton's City Campus is 
-                    in the heart of Wolverhampton city centre. Explore our University campus and enjoy all 
-                    that city life has to offer and start your journey by booking an open day today! 
-                    Visit our Wolverhampton City Campus, Walsall Campus, or Telford Campus to see the state-of-the-art facilities we offer. 
-                    From engineering to health sciences, we support your journey every step of the way. For more information on directions around our campuses
-                    <a class="login-hyperlink" href="map.html">See campus locations →</a>
-                    <span onclick="readText(this.parentElement)" style="cursor: pointer; margin-left: 10px;">
-                        🔊
-                    </span>
-                </p>
+        <div id="confirmation-box" class="hidden" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); display:flex; justify-content:center; align-items:center;">
+            <div class="confirmation-message" style="background:white; padding:20px; border-radius:8px; text-align:center;">
+                <p id="confirmation-text">Reservation has been booked</p>
+                <button id="close-button" style="margin-top:10px;" >Close</button>
             </div>
-
-            <div class="reservation-section">
-                <h2>Reserve Your Spot Today!</h2>
-                <p>Want to take a look around for yourself?
-                    Ready to see more? Book your place for an open day visit now.
-                    <a class="login-hyperlink" href="book_reservation.html">Reserve now →</a>
-                    <span onclick="readText(this.parentElement)" style="cursor: pointer; margin-left: 10px;">
-                        🔊
-                    </span>
-                </p>
-            </div>
-
-            <div class="help-section">
-                <h2>Require Assistance?</h2>
-                <p>Don't be afraid to reach out to us for any inquiries, for more information on courses,
-                    life at the University of Wolverhampton, or to submit general feedback! We're here to help.
-                    <a class="login-hyperlink" href="help.html">Contact Us →</a>
-                    <span onclick="readText(this.parentElement)" style="cursor: pointer; margin-left: 10px;">
-                        🔊
-                    </span>
-
-                </p>
-            </div>
-
-            <div>
-                <h2>Reviews by Guests and Students</h2>
-                <?php include 'includes/fetch_reviews.inc.php'; ?>
-            </div>
-
-
-            </main>
-        </section>
+        </div>
 
         <section id="chatbot">
             <!-- Chatbot Button -->
