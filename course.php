@@ -30,7 +30,7 @@ session_start();
             
             <!-- Cyber Security Course -->
             <div class="course">
-                <img src="Cyber Security.jpg" alt="Cybersecurity">
+                <img src="icons/courses/Cyber_Security.jpg" alt="Cybersecurity">
                 <div class="course-details">
                     <h2>BSc (Hons) Cybersecurity</h2>
                     <p>This degree equips students with the skills to protect information and technology infrastructures from cyber threats, with modules covering cryptography, penetration testing, ethical hacking, and incident response.
@@ -45,7 +45,7 @@ session_start();
 
             <!-- Software Engineering Course -->
             <div class="course">
-                <img src="Software Engineer.jpg" alt="Software Engineering">
+                <img src="icons/courses/Software_Engineering.jpg" alt="Software Engineering">
                 <div class="course-details">
                     <h2>BSc (Hons) Software Engineering</h2>
                     <p>This course develops students’ abilities in software design, implementation, testing, and management, covering modules such as Agile Development, Software Quality Assurance, and Mobile Application Development.
@@ -61,7 +61,7 @@ session_start();
 
             <!-- Data Science Course -->
             <div class="course">
-                <img src="Data Science.jpg" alt="Data Science">
+                <img src="icons/courses/Data_Science.jpg" alt="Data Science">
                 <div class="course-details">
                     <h2>BSc (Hons) Data Science</h2>
                     <p>This programme provides a strong foundation in data analytics, machine learning, statistical methods, and visualization, preparing students to extract insights from complex data sets.
@@ -77,7 +77,7 @@ session_start();
 
             <!-- Computer Science Course -->
             <div class="course">
-                <img src="Computer Science.jpg" alt="Computer Science">
+                <img src="icons/courses/Computer_Science.jpg" alt="Computer Science">
                 <div class="course-details">
                     <h2>BSc (Hons) Computer Science</h2>
                     <p>This degree offers comprehensive knowledge across computing disciplines, including programming, artificial intelligence, web development, and software architecture.
