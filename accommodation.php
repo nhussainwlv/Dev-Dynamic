@@ -120,15 +120,20 @@ session_start();
          </table>
         </section>
     </main>
+          <section>
           <h1>Student life within Accommodation</h1>
+        </section>
 
+        <section>
         <h2>social groups</h2>
         <p>Students who live within Accommodation can do alot of things such
         as doing house events that consists of other social groups have food together and hangout.
         students can also do other events like go to the movies or go rock climbing etc.Student accommodation offers
         direct access to an exiciting and supportive enviroment to help you thrive socially and in your academics studies.
-        </p>    
+        </p>
+        </section>
 
+        <section>
         <h2>Clubs</h2>
         <p>
         There are different Clubs that all students can attend such 
@@ -141,7 +146,9 @@ session_start();
         this will allow for you to connect with like minded peers of your community that you may be interested to join. 
         <img src =  "https://www.wlv.ac.uk/media/departments/digital-content-and-communications/images/stock-images/SU-logo-news-teaser.jpg" height = "200" width = "200">
         </p>
+        </section>
 
+        <section>
         <h2>Sports Facilities and Fitness</h2>
         <p>
             There is a Fitness Faculity within the university that is open 7 days a week, which 
@@ -155,11 +162,14 @@ session_start();
             <h3>Opening times</h3>
             <p>Monday - Friday 6:45am - 8:15pm. Saturday - Sunday 10:15am - 4:15pm</p>
         </p>
+        </section>
 
+
+    <section>
     <h2>Financial aid</h2>
     <p>To get Financial help you can go to the accommodation reception to receive advice on how to deal with your struggles</p>
     <p>You can also receive Financial aid from the university Financial Department, they can help fix any issues you may have regarding finances.</p>
-
+    <section>
     <h3>Students with disabilities or learning diffculities may be eligible</h3>
         <p>
             To get access to this specialist equipment, you would need to get a letter/Note from your GP as proof
@@ -173,6 +183,7 @@ session_start();
     become more easy to deal with. 1:1 support sessions are availble in the ML Building. You would need to fill out a small 
     form before you can get access.
     </p>
+    </section>
 
     <?php include_once 'chatbot.php'; ?>
 
