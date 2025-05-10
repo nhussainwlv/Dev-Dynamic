@@ -49,7 +49,7 @@ session_start();
                         <span onclick="readText(this.parentElement)" style="cursor: pointer; margin-left: 10px;">
                             🔊
                         </span>
-                        <a href="course.html" class="btn-course">Explore Courses</a>
+                        <a href="course.php" class="btn-course">Explore Courses</a>
                     </p>
                 </div>
 
@@ -61,7 +61,7 @@ session_start();
                     that city life has to offer and start your journey by booking an open day today! 
                     Visit our Wolverhampton City Campus, Walsall Campus, or Telford Campus to see the state-of-the-art facilities we offer. 
                     From engineering to health sciences, we support your journey every step of the way. For more information on directions around our campuses
-                    <a class="login-hyperlink" href="map.html">See campus locations →</a>
+                    <a class="login-hyperlink" href="map.php">See campus locations →</a>
                     <span onclick="readText(this.parentElement)" style="cursor: pointer; margin-left: 10px;">
                         🔊
                     </span>
@@ -72,7 +72,7 @@ session_start();
                 <h2>Reserve Your Spot Today!</h2>
                 <p>Want to take a look around for yourself?
                     Ready to see more? Book your place for an open day visit now.
-                    <a class="login-hyperlink" href="book_reservation.html">Reserve now →</a>
+                    <a class="login-hyperlink" href="book_reservation.php">Reserve now →</a>
                     <span onclick="readText(this.parentElement)" style="cursor: pointer; margin-left: 10px;">
                         🔊
                     </span>
@@ -83,7 +83,7 @@ session_start();
                 <h2>Require Assistance?</h2>
                 <p>Don't be afraid to reach out to us for any inquiries, for more information on courses,
                     life at the University of Wolverhampton, or to submit general feedback! We're here to help.
-                    <a class="login-hyperlink" href="help.html">Contact Us →</a>
+                    <a class="login-hyperlink" href="help.php">Contact Us →</a>
                     <span onclick="readText(this.parentElement)" style="cursor: pointer; margin-left: 10px;">
                         🔊
                     </span>
